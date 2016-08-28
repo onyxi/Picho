@@ -13,9 +13,13 @@
 		C139AA911D7387A9005CB5CF /* AlbmsApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C139AA8F1D7387A9005CB5CF /* AlbmsApp.xcdatamodeld */; };
 		C139AA931D7387A9005CB5CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C139AA921D7387A9005CB5CF /* Assets.xcassets */; };
 		C139AA961D7387A9005CB5CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C139AA941D7387A9005CB5CF /* LaunchScreen.storyboard */; };
+		D4445F0149BF90C911EB254B /* Pods_AlbmsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537661D7CA384E57593FB603 /* Pods_AlbmsApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		537661D7CA384E57593FB603 /* Pods_AlbmsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbmsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D9130FC99D745392A6044DC /* Pods-AlbmsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbmsApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbmsApp/Pods-AlbmsApp.release.xcconfig"; sourceTree = "<group>"; };
+		8E1F76C29F9B799FF815926C /* Pods-AlbmsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbmsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbmsApp/Pods-AlbmsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C139AA851D7387A9005CB5CF /* AlbmsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlbmsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C139AA881D7387A9005CB5CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C139AA8A1D7387A9005CB5CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +28,7 @@
 		C139AA921D7387A9005CB5CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C139AA951D7387A9005CB5CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C139AA971D7387A9005CB5CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C14B32FE1D73895B00A7FBC0 /* AlbmsApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AlbmsApp-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +36,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4445F0149BF90C911EB254B /* Pods_AlbmsApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3EF8AAA579703D04E220EACA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E1F76C29F9B799FF815926C /* Pods-AlbmsApp.debug.xcconfig */,
+				7D9130FC99D745392A6044DC /* Pods-AlbmsApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C139AA7C1D7387A9005CB5CF = {
 			isa = PBXGroup;
 			children = (
 				C139AA871D7387A9005CB5CF /* AlbmsApp */,
 				C139AA861D7387A9005CB5CF /* Products */,
+				3EF8AAA579703D04E220EACA /* Pods */,
+				EB1642989147AF1EABC4D5C5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,8 +80,17 @@
 				C139AA941D7387A9005CB5CF /* LaunchScreen.storyboard */,
 				C139AA971D7387A9005CB5CF /* Info.plist */,
 				C139AA8F1D7387A9005CB5CF /* AlbmsApp.xcdatamodeld */,
+				C14B32FE1D73895B00A7FBC0 /* AlbmsApp-Bridging-Header.h */,
 			);
 			path = AlbmsApp;
+			sourceTree = "<group>";
+		};
+		EB1642989147AF1EABC4D5C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				537661D7CA384E57593FB603 /* Pods_AlbmsApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +100,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C139AA9A1D7387A9005CB5CF /* Build configuration list for PBXNativeTarget "AlbmsApp" */;
 			buildPhases = (
+				68C6ABB48B1E5B8994DB49F8 /* [CP] Check Pods Manifest.lock */,
 				C139AA811D7387A9005CB5CF /* Sources */,
 				C139AA821D7387A9005CB5CF /* Frameworks */,
 				C139AA831D7387A9005CB5CF /* Resources */,
+				2961D98912DF684A01B72B48 /* [CP] Embed Pods Frameworks */,
+				D415AACEB301AF6C22336918 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,6 +161,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2961D98912DF684A01B72B48 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbmsApp/Pods-AlbmsApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68C6ABB48B1E5B8994DB49F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D415AACEB301AF6C22336918 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbmsApp/Pods-AlbmsApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C139AA811D7387A9005CB5CF /* Sources */ = {
@@ -253,23 +330,30 @@
 		};
 		C139AA9B1D7387A9005CB5CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E1F76C29F9B799FF815926C /* Pods-AlbmsApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = AlbmsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.onyxinteractive.AlbmsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AlbmsApp/AlbmsApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C139AA9C1D7387A9005CB5CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D9130FC99D745392A6044DC /* Pods-AlbmsApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = AlbmsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.onyxinteractive.AlbmsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AlbmsApp/AlbmsApp-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -292,6 +376,7 @@
 				C139AA9C1D7387A9005CB5CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
