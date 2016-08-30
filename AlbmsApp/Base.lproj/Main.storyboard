@@ -4,40 +4,306 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="LobsterTwo-BoldItalic.ttf">
+            <string>LobsterTwo-BoldItalic</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AlbmsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="AlbmsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5SI-Sj-XG9">
-                                <rect key="frame" x="222" y="62" width="156" height="128"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Albms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSN-9x-UMx">
+                                <rect key="frame" x="90" y="97" width="195" height="93"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="156" id="Ypc-yf-80B"/>
-                                    <constraint firstAttribute="height" constant="128" id="b1d-E5-Edp"/>
+                                    <constraint firstAttribute="height" constant="93" id="Vwq-YK-i61"/>
+                                    <constraint firstAttribute="width" constant="195" id="uVe-Lp-Sjn"/>
                                 </constraints>
-                            </view>
+                                <fontDescription key="fontDescription" name="LobsterTwo-BoldItalic" family="Lobster Two" pointSize="62"/>
+                                <color key="textColor" red="0.24206552281481847" green="0.37436868686868685" blue="0.33920824803895894" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fr-Yh-0tL" customClass="CustomButton" customModule="AlbmsApp" customModuleProvider="target">
+                                <rect key="frame" x="64" y="230" width="248" height="46"/>
+                                <color key="backgroundColor" red="0.1803921568627451" green="0.27450980392156865" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="Yuk-E9-rD9"/>
+                                    <constraint firstAttribute="width" constant="248" id="awp-kZ-bdP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="       Sign in with Facebook" image="f">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderSize">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJ4-rz-1dd" customClass="CustomButton" customModule="AlbmsApp" customModuleProvider="target">
+                                <rect key="frame" x="64" y="311" width="248" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="kcx-S4-QIE"/>
+                                    <constraint firstAttribute="width" constant="248" id="pHw-mk-Afs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="    Sign in with Google" image="gsignin">
+                                    <color key="titleColor" red="0.40332532049999997" green="0.40332532049999997" blue="0.40332532049999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderSize">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.85490196078431369" green="0.87058823529411766" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OaS-Hu-1Rk" customClass="CustomButton" customModule="AlbmsApp" customModuleProvider="target">
+                                <rect key="frame" x="64" y="392" width="248" height="45"/>
+                                <color key="backgroundColor" red="0.48627450979999998" green="0.75294117650000003" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="248" id="onN-75-R8f"/>
+                                    <constraint firstAttribute="height" constant="45" id="pxH-Rr-I9C"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="    Log in with Email" image="mailIcon">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderSize">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="logInWithEmailPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VbB-ev-NuY"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Mp-sC-OoM" customClass="CustomTextField" customModule="AlbmsApp" customModuleProvider="target">
+                                <rect key="frame" x="63" y="230" width="249" height="40"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.9155689965538274" blue="0.82022408778591038" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="249" id="V96-fo-tKc"/>
+                                    <constraint firstAttribute="height" constant="40" id="aic-gz-6oL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bm1-bm-Q20" customClass="CustomTextField" customModule="AlbmsApp" customModuleProvider="target">
+                                <rect key="frame" x="63" y="294" width="248" height="40"/>
+                                <color key="backgroundColor" red="0.94509803921568625" green="0.89411764705882357" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="248" id="GB7-Co-o8G"/>
+                                    <constraint firstAttribute="height" constant="40" id="Ghh-sM-CJq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thJ-5o-10s" customClass="CustomButton" customModule="AlbmsApp" customModuleProvider="target">
+                                <rect key="frame" x="126" y="365" width="122" height="40"/>
+                                <color key="backgroundColor" red="0.48627450979999998" green="0.75294117650000003" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="14s-es-RwQ"/>
+                                    <constraint firstAttribute="width" constant="122" id="4tN-vs-oE6"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="7ei-PI-0IC"/>
+                                    <constraint firstAttribute="height" constant="40" id="8ji-vy-2w0"/>
+                                    <constraint firstAttribute="height" constant="45" id="Mk3-kt-1rf"/>
+                                    <constraint firstAttribute="width" constant="225" id="lrn-2x-ddh"/>
+                                    <constraint firstAttribute="height" constant="40" id="oHe-XO-5Ng"/>
+                                    <constraint firstAttribute="width" constant="248" id="ttK-i6-FVp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Log In">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="14s-es-RwQ"/>
+                                        <exclude reference="7ei-PI-0IC"/>
+                                        <exclude reference="Mk3-kt-1rf"/>
+                                        <exclude reference="lrn-2x-ddh"/>
+                                        <exclude reference="oHe-XO-5Ng"/>
+                                        <exclude reference="ttK-i6-FVp"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCK-vM-laO">
+                                <rect key="frame" x="164" y="433" width="48" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="4Ow-rc-gkl"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="BFS-Eg-7HR"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="cKk-oP-RFQ"/>
+                                    <constraint firstAttribute="width" constant="48" id="zft-3C-hLJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BFS-Eg-7HR"/>
+                                        <exclude reference="cKk-oP-RFQ"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXU-PA-KmW">
+                                <rect key="frame" x="40" y="445" width="110" height="1"/>
+                                <color key="backgroundColor" red="0.63194444439999997" green="0.62580906150000004" blue="0.62580906150000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="6rQ-Le-TB6"/>
+                                    <constraint firstAttribute="width" constant="110" id="Tdp-XO-eOc"/>
+                                    <constraint firstAttribute="width" constant="123" id="mbu-hq-TGV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="mbu-hq-TGV"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiQ-dT-tz2">
+                                <rect key="frame" x="226" y="445" width="110" height="1"/>
+                                <color key="backgroundColor" red="0.63194444439999997" green="0.62580906150000004" blue="0.62580906150000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="GsY-g2-vBO"/>
+                                    <constraint firstAttribute="width" constant="123" id="Km5-fS-73X"/>
+                                    <constraint firstAttribute="height" constant="1" id="SDs-9W-jVd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Km5-fS-73X"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3M-Re-v90" customClass="CustomButton" customModule="AlbmsApp" customModuleProvider="target">
+                                <rect key="frame" x="75" y="480" width="225" height="40"/>
+                                <color key="backgroundColor" red="0.48627450979999998" green="0.75294117650000003" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="225" id="DuT-eg-HAW"/>
+                                    <constraint firstAttribute="height" constant="45" id="Lj0-Xh-TMF"/>
+                                    <constraint firstAttribute="height" constant="40" id="R6t-NK-sif"/>
+                                    <constraint firstAttribute="width" constant="225" id="WPw-dG-csJ"/>
+                                    <constraint firstAttribute="width" constant="248" id="aUz-kp-ooF"/>
+                                    <constraint firstAttribute="height" constant="40" id="pYt-xV-f0F"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="225" id="uPc-85-5CT"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="usa-VY-VQ1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Create New Account">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DuT-eg-HAW"/>
+                                        <exclude reference="Lj0-Xh-TMF"/>
+                                        <exclude reference="R6t-NK-sif"/>
+                                        <exclude reference="aUz-kp-ooF"/>
+                                        <exclude reference="uPc-85-5CT"/>
+                                        <exclude reference="usa-VY-VQ1"/>
+                                    </mask>
+                                </variation>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5SI-Sj-XG9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oBQ-hp-AeB"/>
+                            <constraint firstItem="6Mp-sC-OoM" firstAttribute="top" secondItem="9fr-Yh-0tL" secondAttribute="top" id="2wD-7z-FhL"/>
+                            <constraint firstItem="6Mp-sC-OoM" firstAttribute="top" secondItem="9fr-Yh-0tL" secondAttribute="top" id="8zi-Na-AML"/>
+                            <constraint firstItem="BJ4-rz-1dd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="9TM-D6-7Q3"/>
+                            <constraint firstItem="9fr-Yh-0tL" firstAttribute="top" secondItem="xSN-9x-UMx" secondAttribute="bottom" constant="40" id="9sX-ZU-Tll"/>
+                            <constraint firstItem="BJ4-rz-1dd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BCY-Mc-4FO"/>
+                            <constraint firstAttribute="trailing" secondItem="BiQ-dT-tz2" secondAttribute="trailing" constant="26" id="EHF-Vh-Qjl"/>
+                            <constraint firstItem="e3M-Re-v90" firstAttribute="top" secondItem="tCK-vM-laO" secondAttribute="bottom" constant="23" id="Hdy-KX-GFk"/>
+                            <constraint firstItem="BiQ-dT-tz2" firstAttribute="leading" secondItem="tCK-vM-laO" secondAttribute="trailing" constant="14" id="JF9-FS-wd1"/>
+                            <constraint firstItem="thJ-5o-10s" firstAttribute="top" secondItem="bm1-bm-Q20" secondAttribute="bottom" constant="31" id="KMT-zL-0Yg"/>
+                            <constraint firstItem="tCK-vM-laO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Mhf-dx-bSs"/>
+                            <constraint firstItem="thJ-5o-10s" firstAttribute="top" secondItem="bm1-bm-Q20" secondAttribute="bottom" constant="31" id="QH5-vp-riU"/>
+                            <constraint firstItem="BiQ-dT-tz2" firstAttribute="leading" secondItem="tCK-vM-laO" secondAttribute="trailing" constant="14" id="Rkf-so-6Xp"/>
+                            <constraint firstItem="XXU-PA-KmW" firstAttribute="centerY" secondItem="tCK-vM-laO" secondAttribute="centerY" id="T6d-LE-2by"/>
+                            <constraint firstItem="6Mp-sC-OoM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WrK-BS-PAE"/>
+                            <constraint firstItem="tCK-vM-laO" firstAttribute="leading" secondItem="XXU-PA-KmW" secondAttribute="trailing" constant="14" id="X1g-NR-ssX"/>
+                            <constraint firstItem="bm1-bm-Q20" firstAttribute="top" secondItem="6Mp-sC-OoM" secondAttribute="bottom" constant="24" id="aEZ-t0-GbG"/>
+                            <constraint firstItem="tCK-vM-laO" firstAttribute="top" secondItem="thJ-5o-10s" secondAttribute="bottom" constant="28" id="bcQ-4M-8bQ"/>
+                            <constraint firstItem="BiQ-dT-tz2" firstAttribute="centerY" secondItem="tCK-vM-laO" secondAttribute="centerY" id="bxF-qF-g3K"/>
+                            <constraint firstItem="bm1-bm-Q20" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dr6-06-iHp"/>
+                            <constraint firstItem="OaS-Hu-1Rk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eV1-sL-xrN"/>
+                            <constraint firstItem="OaS-Hu-1Rk" firstAttribute="top" secondItem="BJ4-rz-1dd" secondAttribute="bottom" constant="35" id="g6D-2d-hKj"/>
+                            <constraint firstItem="tCK-vM-laO" firstAttribute="leading" secondItem="XXU-PA-KmW" secondAttribute="trailing" constant="14" id="lob-Of-3kU"/>
+                            <constraint firstItem="e3M-Re-v90" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mms-CO-3ld"/>
+                            <constraint firstItem="9fr-Yh-0tL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n31-ne-6Mg"/>
+                            <constraint firstItem="bm1-bm-Q20" firstAttribute="top" secondItem="6Mp-sC-OoM" secondAttribute="bottom" constant="24" id="nQU-21-Zuu"/>
+                            <constraint firstItem="BJ4-rz-1dd" firstAttribute="top" secondItem="9fr-Yh-0tL" secondAttribute="bottom" constant="35" id="sJM-CO-GY1"/>
+                            <constraint firstItem="XXU-PA-KmW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="28" id="sui-dU-Qba"/>
+                            <constraint firstItem="thJ-5o-10s" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tyh-vb-fKa"/>
+                            <constraint firstItem="xSN-9x-UMx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zjE-21-QQn"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="2wD-7z-FhL"/>
+                                <exclude reference="aEZ-t0-GbG"/>
+                                <exclude reference="QH5-vp-riU"/>
+                                <exclude reference="sui-dU-Qba"/>
+                                <exclude reference="X1g-NR-ssX"/>
+                                <exclude reference="EHF-Vh-Qjl"/>
+                                <exclude reference="JF9-FS-wd1"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="box" destination="5SI-Sj-XG9" id="cEX-4u-6yW"/>
+                        <outlet property="createAccountBtnConstraint" destination="mms-CO-3ld" id="DBQ-db-QRG"/>
+                        <outlet property="emailBtnConstraint" destination="eV1-sL-xrN" id="wbV-6I-XS9"/>
+                        <outlet property="emailField" destination="6Mp-sC-OoM" id="WbY-9X-6m6"/>
+                        <outlet property="emailFieldConstraint" destination="WrK-BS-PAE" id="Twt-C9-QTN"/>
+                        <outlet property="facebookBtnConstraint" destination="n31-ne-6Mg" id="yP5-Hb-ndX"/>
+                        <outlet property="googleBtnConstraint" destination="BCY-Mc-4FO" id="HFO-Yv-SR7"/>
+                        <outlet property="loginBtnConstraint" destination="tyh-vb-fKa" id="M2G-aN-4Du"/>
+                        <outlet property="or2Constraint" destination="Mhf-dx-bSs" id="7f9-IW-Rup"/>
+                        <outlet property="passwordField" destination="bm1-bm-Q20" id="OQl-lJ-f0C"/>
+                        <outlet property="passwordFieldConstraint" destination="dr6-06-iHp" id="pkO-Y4-NqP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="349"/>
+            <point key="canvasLocation" x="304.5" y="348.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="f" width="21" height="40"/>
+        <image name="gsignin" width="46" height="46"/>
+        <image name="mailIcon" width="40" height="40"/>
+    </resources>
 </document>
