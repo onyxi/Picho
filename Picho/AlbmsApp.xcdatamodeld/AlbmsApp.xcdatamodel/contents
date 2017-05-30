@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16D32" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="ActiveAlbum" syncable="YES">
+        <attribute name="albumID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="availableDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="coverImage" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="descriptionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstSynchComplete" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastSelected" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="ownerID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="synchedToFirebase" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="titleText" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contributors" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contributor" inverseName="album" inverseEntity="Contributor" syncable="YES"/>
+        <relationship name="currentUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentUser" inverseName="activeAlbums" inverseEntity="CurrentUser" syncable="YES"/>
+        <relationship name="media" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Media" inverseName="album" inverseEntity="Media" syncable="YES"/>
+    </entity>
+    <entity name="Contributor" syncable="YES">
+        <attribute name="albumID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mediaRemaining" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="mediaTaken" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ActiveAlbum" inverseName="contributors" inverseEntity="ActiveAlbum" syncable="YES"/>
+    </entity>
+    <entity name="CurrentUser" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profileImage" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activeAlbums" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ActiveAlbum" inverseName="currentUser" inverseEntity="ActiveAlbum" syncable="YES"/>
+    </entity>
+    <entity name="Filter" syncable="YES">
+        <attribute name="lastSelected" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Media" syncable="YES">
+        <attribute name="albumID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isCover" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="mediaID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mediaItem" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="mediaURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ActiveAlbum" inverseName="media" inverseEntity="ActiveAlbum" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ActiveAlbum" positionX="-153" positionY="-9" width="128" height="270"/>
+        <element name="Contributor" positionX="-144" positionY="0" width="128" height="135"/>
+        <element name="CurrentUser" positionX="-162" positionY="-18" width="128" height="135"/>
+        <element name="Filter" positionX="-153" positionY="-9" width="128" height="75"/>
+        <element name="Media" positionX="-135" positionY="9" width="128" height="150"/>
+    </elements>
+</model>
