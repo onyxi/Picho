@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C139AA841D7387A9005CB5CF"
-               BuildableName = "AlbmsApp.app"
-               BlueprintName = "AlbmsApp"
-               ReferencedContainer = "container:AlbmsApp.xcodeproj">
+               BuildableName = "Picho.app"
+               BlueprintName = "Picho"
+               ReferencedContainer = "container:Picho.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C139AA841D7387A9005CB5CF"
-            BuildableName = "AlbmsApp.app"
-            BlueprintName = "AlbmsApp"
-            ReferencedContainer = "container:AlbmsApp.xcodeproj">
+            BuildableName = "Picho.app"
+            BlueprintName = "Picho"
+            ReferencedContainer = "container:Picho.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C139AA841D7387A9005CB5CF"
-            BuildableName = "AlbmsApp.app"
-            BlueprintName = "AlbmsApp"
-            ReferencedContainer = "container:AlbmsApp.xcodeproj">
+            BuildableName = "Picho.app"
+            BlueprintName = "Picho"
+            ReferencedContainer = "container:Picho.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C139AA841D7387A9005CB5CF"
-            BuildableName = "AlbmsApp.app"
-            BlueprintName = "AlbmsApp"
-            ReferencedContainer = "container:AlbmsApp.xcodeproj">
+            BuildableName = "Picho.app"
+            BlueprintName = "Picho"
+            ReferencedContainer = "container:Picho.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
