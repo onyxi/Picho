@@ -8,25 +8,20 @@
 
 import UIKit
 
-struct Contributor {
-    private var _userID: String
-    private var _username: String
-    private var _photosRemaining: Int
-    private var _photosTaken: Int
+class Contributor {
     
-    var userID : String { return _userID }
-    var username: String { return _username }
-    var photosRemaining: Int { return _photosRemaining }
-    var photosTaken: Int { return _photosTaken }
+    // declare Contributor object properties
+    var userID: String
+    var username: String
+    var photosRemaining: Int
+    var photosTaken: Int
     
-    
+    // initialize Contributor object
     init (userID: String, username: String, photosRemaining: Int, photosTaken: Int) {
-        _userID = userID
-        _username = username
-        _photosRemaining = photosRemaining
-        _photosTaken = photosTaken
+        self.userID = userID
+        self.username = username
+        self.photosRemaining = photosRemaining
+        self.photosTaken = photosTaken
     }
-    
-
     
 }
