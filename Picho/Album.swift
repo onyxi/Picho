@@ -8,53 +8,35 @@
 
 import UIKit
 
-struct Album {
+class Album {
     
-    private var _albumID: String
-    private var _ownerID: String
-    private var _availableDate: Date
-    private var _contributors: [Contributor]
-    private var _coverURL: String?
-    private var _coverImage: UIImage?
-//    private var _coverID: String
-    private var _createdDate: Date
-    private var _description: String
-   // private var _mediaCount: Int
-    private var _title: String
-    private var _isActive: Bool
+    // declare Album object properties
+    var albumID: String
+    var ownerID: String
+    var title: String
+    var description: String
+    var createdDate: Date
+    var availableDate: Date
+    var contributors: [Contributor]
+    var coverURL: String?
+    var coverImage: UIImage?
+    var isActive: Bool
     
-    var albumID: String { return _albumID }
-    var ownerID: String { return _ownerID }
-    var availableDate: Date { return _availableDate }
-    var contributors: [Contributor] { return _contributors }
-    var coverURL: String? { return _coverURL }
-    var coverImage: UIImage? { return _coverImage }
-//    var coverID: String { return _coverID }
-    var createdDate: Date { return _createdDate }
-    var description: String { return _description }
-    //var mediaCount: Int { return _mediaCount }
-    var title: String { return _title }
-    var isActive: Bool { return _isActive }
-    
-    init(albumID: String, ownerID: String, title: String, description: String, createdDate: Date, availableDate: Date, contributors: [Contributor], coverURL: String?,  coverImage: UIImage?, isActive: Bool ) {
-         //mediaCount: Int, 
-       
-
-        _albumID = albumID
-        _ownerID = ownerID
-        _availableDate = availableDate
-        _contributors = contributors
-        _coverURL = coverURL
-        _coverImage = coverImage
-   //     _coverID = coverID
-        _createdDate = createdDate
-        _description = description
-        //_mediaCount = mediaCount
-        _title = title
-        _isActive = isActive
-
+    // initialize Album object
+    init (albumID: String, ownerID: String, title: String, description: String, createdDate: Date, availableDate: Date, contributors: [Contributor], coverURL: String?, coverImage: UIImage?, isActive: Bool) {
+        self.albumID = albumID
+        self.ownerID = ownerID
+        self.title = title
+        self.description = description
+        self.createdDate = createdDate
+        self.availableDate = availableDate
+        self.contributors = contributors
+        self.coverURL = coverURL
+        self.coverImage = coverImage
+        self.isActive = isActive
     }
     
+    // return the count of media items the owner has so far added to the album
     func ownerMediaCount() -> Int {
         for user in contributors {
             if user.userID == ownerID {
@@ -64,6 +46,7 @@ struct Album {
         return 0
     }
 
+    // return the number of media items that the album currently contains
     func albumMediaCount() -> Int {
         var mediaCount = 0
         for contributor in contributors {
