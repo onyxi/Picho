@@ -8,22 +8,20 @@
 
 import UIKit
 
-struct User {
-    private var _userID: String
-    private var _username: String
-    private var _email: String
-    private var _profilePicURL: String
+class User {
     
-    var userID: String { return _userID }
-    var username: String { return _username }
-    var email: String { return _email }
-    var profilePicURL: String { return _profilePicURL }
+    // declare User object properties
+    var userID: String
+    var username: String
+    var email: String
+    var profilePicURL: String
     
+    // initialize User object
     init (userID: String, username: String, email: String, profilePicURL: String) {
-        _userID = userID
-        _username = username
-        _email = email
-        _profilePicURL = profilePicURL
+        self.userID = userID
+        self.username = username
+        self.email = email
+        self.profilePicURL = profilePicURL
     }
     
 }
