@@ -22,7 +22,7 @@ protocol FetchAlbumsDelegate {
 }
 
 protocol FetchNotifsDelegate {
-    func didFetchNotifs(fetchedNotifs: [Notif])
+    func didFetchNotifs(fetchedNotifs: [UserNotification])
 }
 
 protocol FetchAlbumMediaDelegate {
@@ -484,7 +484,7 @@ class FBService {
     // [START fetch notification data]
     func fetchNotifs() {
         var notifMax = 15
-        var fetchedNotifs = [Notif]()
+        var fetchedNotifs = [UserNotification]()
         
         guard let notifOwnerID = LoggedInUser.myUserID else { print ("could not fetch notifs"); return }
         
@@ -567,7 +567,7 @@ class FBService {
                                             notifImage = downloadedImage
                                             
                                             // all notif info fetched - can now create Notif
-                                            let unpackedNotif = Notif(
+                                            let unpackedNotif = UserNotification(
                                                 userID: notifOwnerID,
                                                 createdDate: notifCreatedDate,
                                                 notifType: notifType,
@@ -612,7 +612,7 @@ class FBService {
                                                 notifImage = downloadedImage
                                                 
                                                 // all notif info fetched - can now create Notif
-                                                let unpackedNotif = Notif(
+                                                let unpackedNotif = UserNotification(
                                                     userID: notifOwnerID,
                                                     createdDate: notifCreatedDate,
                                                     notifType: notifType,

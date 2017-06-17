@@ -8,35 +8,21 @@
 
 import UIKit
 
-class Notif {
+class UserNotification {
+    
+    // declare UserNotification object properties
     var userID: String
     var createdDate: Date
     var notifType: String
     var objectType: String?
-    
     var objectOwnerID: String?
     var objectOwnerUsername: String?
     var albumID: String?
     var mediaID: String?
     var title: String?
-    
     var image: UIImage?
-    
-//    var createdDate: Date { return _createdDate }
-//    var notifType: String { return _notifType }
-//    
-//    var ownerUsername: String? { return _ownerUsername }
-//    var objectType: String? { return _objectType }
-//    var title: String? { return _title }
-//    
-//    
-//    var objectOwnerID: String? { return _objectOwnerID }
-//    var albumID: String? { return _albumID }
-//    var mediaID: String? { return _mediaID }
-//    
-//    
 
-    
+    // initialize UserNotification object
     init (userID: String, createdDate: Date, notifType: String, objectType: String?, objectOwnerID: String?, objectOwnerUsername: String?, albumID: String?, mediaID: String?, title: String?, image: UIImage?) {
         self.userID = userID
         self.createdDate = createdDate
@@ -49,19 +35,7 @@ class Notif {
         self.title = title
         self.image = image
     }
-          
-          
-          
-//        createdDate: Date, notifType: String, ownerUsername: String?, objectType: String?, title: String?, objectOwnerID: String?, albumID: String?, mediaID: String?) {
-//        _createdDate = createdDate
-//        _notifType = notifType
-//        _ownerUsername = ownerUsername
-//        _objectType = objectType
-//        _title = title
-//        _objectOwnerID = objectOwnerID
-//        _albumID = albumID
-//        _mediaID = mediaID
-   // }
+    
     
 }
 

@@ -27,7 +27,7 @@ class NotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIP
     // set up variables to hold Core Data objects
    // var notifications: [NSManagedObject] = []
 
-    var notifs: [Notif] = []
+    var notifs: [UserNotification] = []
     
 //   -------Main View Events---------------------------
     override func viewDidLoad() {
@@ -227,7 +227,7 @@ class NotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIP
     }
     
     
-    func didFetchNotifs(fetchedNotifs: [Notif]) {
+    func didFetchNotifs(fetchedNotifs: [UserNotification]) {
         notifs = fetchedNotifs
         tableView.reloadData()
 //        var index = 0

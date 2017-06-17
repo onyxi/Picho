@@ -11,7 +11,7 @@
 		BC1F560F1E71BFAC0045D59E /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F560E1E71BFAC0045D59E /* DataService.swift */; };
 		BC31A9B01E1A7C7700EB4F71 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC31A9AF1E1A7C7600EB4F71 /* CustomView.swift */; };
 		BC9171841EAD498200C85A8D /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9171831EAD498200C85A8D /* Media.swift */; };
-		BCA557651E9D776A00D8B12B /* Notif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA557641E9D776A00D8B12B /* Notif.swift */; };
+		BCA557651E9D776A00D8B12B /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA557641E9D776A00D8B12B /* UserNotification.swift */; };
 		BCA916131E71EAAB0076396B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA916121E71EAAB0076396B /* AuthService.swift */; };
 		BCA916151E7463F20076396B /* DevData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA916141E7463F20076396B /* DevData.swift */; };
 		BCA916171E75A3B30076396B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA916161E75A3B30076396B /* Constants.swift */; };
@@ -77,7 +77,7 @@
 		BC31A9AF1E1A7C7600EB4F71 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		BC3486C51E355A3200B9191C /* Picho.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Picho.entitlements; sourceTree = SOURCE_ROOT; };
 		BC9171831EAD498200C85A8D /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
-		BCA557641E9D776A00D8B12B /* Notif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notif.swift; sourceTree = "<group>"; };
+		BCA557641E9D776A00D8B12B /* UserNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		BCA916121E71EAAB0076396B /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		BCA916141E7463F20076396B /* DevData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevData.swift; sourceTree = "<group>"; };
 		BCA916161E75A3B30076396B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 				BCA916181E75BA010076396B /* Contributor.swift */,
 				BCA9161E1E75D4D80076396B /* User.swift */,
 				BCA9161C1E75CD440076396B /* LoggedInUser.swift */,
-				BCA557641E9D776A00D8B12B /* Notif.swift */,
+				BCA557641E9D776A00D8B12B /* UserNotification.swift */,
 				C1B7FF6F1D8B3B21006D72F8 /* Generated */,
 				BCF4D8EA1E3E6CD3002DA4F4 /* FireSD.swift */,
 			);
@@ -489,7 +489,7 @@
 				C178C0601DA170CD0010639F /* GalleryMainCollectionViewCell.swift in Sources */,
 				C139AA911D7387A9005CB5CF /* AlbmsApp.xcdatamodeld in Sources */,
 				C12886A71D948D6E0040ADBF /* PicCollectionEngine.swift in Sources */,
-				BCA557651E9D776A00D8B12B /* Notif.swift in Sources */,
+				BCA557651E9D776A00D8B12B /* UserNotification.swift in Sources */,
 				C12886AD1D96A7310040ADBF /* NotificationFirstTableViewCell.swift in Sources */,
 				C1B7FF601D81FC59006D72F8 /* NotesVC.swift in Sources */,
 				C178C0521DA035D00010639F /* CustomNavItem.swift in Sources */,
