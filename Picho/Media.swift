@@ -9,26 +9,22 @@
 import UIKit
 
 class Media {
-
-//    private var _ownerID: String
-//    private var _ownerUsername: String
-//    private var _url: String?
-//    private var _image: UIImage?
-//    private var _createdDate: Date
     
+    // declare Media object properties
     var ownerID: String
     var ownerUsername: String
+    var mediaID: String
     var mediaURL: String?
     var image: UIImage?
-    var mediaID: String
     var createdDate: Date
    
-    init(ownerID: String, ownerUsername: String, mediaURL: String?, image: UIImage?, mediaID: String, createdDate: Date) {
-        self.ownerUsername = ownerUsername
+    // initialize Media object
+    init(ownerID: String, ownerUsername: String, mediaID: String, mediaURL: String?, image: UIImage?, createdDate: Date) {
         self.ownerID = ownerID
+        self.ownerUsername = ownerUsername
+        self.mediaID = mediaID
         self.mediaURL = mediaURL
         self.image = image
-        self.mediaID = mediaID
         self.createdDate = createdDate
     }
     

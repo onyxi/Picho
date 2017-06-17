@@ -433,7 +433,7 @@ class FBService {
             }
             
             for result in results {
-                let media = Media(ownerID: LoggedInUser.myUserID!, ownerUsername: LoggedInUser.myUsername!, mediaURL: nil, image: result.value(forKey: "mediaItem") as! UIImage, mediaID: result.value(forKey: "mediaID") as! String, createdDate: result.value(forKey: "createdDate") as! Date)
+                let media = Media(ownerID: LoggedInUser.myUserID!, ownerUsername: LoggedInUser.myUsername!, mediaID: result.value(forKey: "mediaID") as! String, mediaURL: nil, image: result.value(forKey: "mediaItem") as! UIImage, createdDate: result.value(forKey: "createdDate") as! Date)
                 fetchedMedia.append(media)
             }
             
@@ -461,7 +461,7 @@ class FBService {
                         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                             let mediaOwnerUsername = snapshot.childSnapshot(forPath: "username").value as! String
                             
-                            let fetchedMediaItem = Media(ownerID: ownerID!, ownerUsername: mediaOwnerUsername, mediaURL: mediaURL!, image: nil, mediaID: mediaID, createdDate: mediaCreatedDate)
+                            let fetchedMediaItem = Media(ownerID: ownerID!, ownerUsername: mediaOwnerUsername, mediaID: mediaID, mediaURL: mediaURL!, image: nil, createdDate: mediaCreatedDate)
                             fetchedMedia.append(fetchedMediaItem)
                             
                             if fetchedMedia.count == mediaCount {
