@@ -10,11 +10,11 @@ import UIKit
 
 protocol AlbumCollectionLayoutDelegate {
     // 1
-    func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath,
-                        withWidth:CGFloat) -> CGFloat
-    // 2
-    func collectionView(_ collectionView: UICollectionView,
-                        heightForAnnotationAtIndexPath indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat
+//    func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath,
+//                        withWidth:CGFloat) -> CGFloat
+//    // 2
+//    func collectionView(_ collectionView: UICollectionView,
+//                        heightForAnnotationAtIndexPath indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat
 }
 
 

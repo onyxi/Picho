@@ -53,7 +53,6 @@
 		C1B7FF5E1D81FC48006D72F8 /* CamVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF5D1D81FC48006D72F8 /* CamVC.swift */; };
 		C1B7FF601D81FC59006D72F8 /* NotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF5F1D81FC59006D72F8 /* NotesVC.swift */; };
 		C1B7FF651D89E580006D72F8 /* PastAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF631D89E580006D72F8 /* PastAlbumCollectionViewCell.swift */; };
-		C1B7FF691D89F0C6006D72F8 /* AlbumCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF681D89F0C6006D72F8 /* AlbumCollectionLayout.swift */; };
 		C1B7FF751D8B49AE006D72F8 /* AlbumCollectionTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF741D8B49AE006D72F8 /* AlbumCollectionTileView.swift */; };
 		C1CCC0A21D9B17260008B4A2 /* AlbumPicsGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCC0A11D9B17260008B4A2 /* AlbumPicsGalleryVC.swift */; };
 		C1CCC0A41D9C627F0008B4A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1CCC0A31D9C627F0008B4A2 /* Main.storyboard */; };
@@ -121,7 +120,6 @@
 		C1B7FF5D1D81FC48006D72F8 /* CamVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamVC.swift; sourceTree = "<group>"; };
 		C1B7FF5F1D81FC59006D72F8 /* NotesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
 		C1B7FF631D89E580006D72F8 /* PastAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
-		C1B7FF681D89F0C6006D72F8 /* AlbumCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCollectionLayout.swift; sourceTree = "<group>"; };
 		C1B7FF741D8B49AE006D72F8 /* AlbumCollectionTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCollectionTileView.swift; sourceTree = "<group>"; };
 		C1CCC0A11D9B17260008B4A2 /* AlbumPicsGalleryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumPicsGalleryVC.swift; sourceTree = "<group>"; };
 		C1CCC0A31D9C627F0008B4A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 			children = (
 				BC3486C51E355A3200B9191C /* Picho.entitlements */,
 				C1B7FF6A1D8B3AE9006D72F8 /* Model */,
-				C1B7FF671D89F066006D72F8 /* Layouts */,
 				C1F8089A1D74803B00DDE35B /* Util */,
 				C14B330B1D745E0000A7FBC0 /* Controller */,
 				C14B330A1D745DF900A7FBC0 /* View */,
@@ -268,14 +265,6 @@
 				C18935201DB37D6200301A7A /* DatePickerPopoverVC.swift */,
 			);
 			name = Controller;
-			sourceTree = "<group>";
-		};
-		C1B7FF671D89F066006D72F8 /* Layouts */ = {
-			isa = PBXGroup;
-			children = (
-				C1B7FF681D89F0C6006D72F8 /* AlbumCollectionLayout.swift */,
-			);
-			name = Layouts;
 			sourceTree = "<group>";
 		};
 		C1B7FF6A1D8B3AE9006D72F8 /* Model */ = {
@@ -462,7 +451,6 @@
 				BCA916171E75A3B30076396B /* Constants.swift in Sources */,
 				C14B33031D744FE000A7FBC0 /* CustomTextField.swift in Sources */,
 				BCA916151E7463F20076396B /* DevData.swift in Sources */,
-				C1B7FF691D89F0C6006D72F8 /* AlbumCollectionLayout.swift in Sources */,
 				BC9171841EAD498200C85A8D /* Media.swift in Sources */,
 				C139AA8B1D7387A9005CB5CF /* LoginVC.swift in Sources */,
 				C178C0581DA05FD60010639F /* ChooseFilterVC.swift in Sources */,
