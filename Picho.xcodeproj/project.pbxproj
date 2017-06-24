@@ -20,7 +20,6 @@
 		BCA9161D1E75CD440076396B /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA9161C1E75CD440076396B /* CurrentUser.swift */; };
 		BCA9161F1E75D4D80076396B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA9161E1E75D4D80076396B /* User.swift */; };
 		BCC3B0FD1E867185008F1686 /* FBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FC1E867185008F1686 /* FBService.swift */; };
-		BCF4D8EB1E3E6CD3002DA4F4 /* FireSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4D8EA1E3E6CD3002DA4F4 /* FireSD.swift */; };
 		BCF9D6F91E993DD90087D7D2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9D6F81E993DD90087D7D2 /* Extensions.swift */; };
 		C12886A71D948D6E0040ADBF /* PicCollectionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12886A61D948D6E0040ADBF /* PicCollectionEngine.swift */; };
 		C12886A91D95DB820040ADBF /* FutureAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12886A81D95DB820040ADBF /* FutureAlbumCollectionViewCell.swift */; };
@@ -86,7 +85,6 @@
 		BCA9161C1E75CD440076396B /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		BCA9161E1E75D4D80076396B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BCC3B0FC1E867185008F1686 /* FBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBService.swift; sourceTree = "<group>"; };
-		BCF4D8EA1E3E6CD3002DA4F4 /* FireSD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireSD.swift; sourceTree = "<group>"; };
 		BCF9D6F81E993DD90087D7D2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C12886A61D948D6E0040ADBF /* PicCollectionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicCollectionEngine.swift; sourceTree = "<group>"; };
 		C12886A81D95DB820040ADBF /* FutureAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -289,17 +287,8 @@
 				BCA9161E1E75D4D80076396B /* User.swift */,
 				BCA9161C1E75CD440076396B /* CurrentUser.swift */,
 				BCA557641E9D776A00D8B12B /* UserNotification.swift */,
-				C1B7FF6F1D8B3B21006D72F8 /* Generated */,
-				BCF4D8EA1E3E6CD3002DA4F4 /* FireSD.swift */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		C1B7FF6F1D8B3B21006D72F8 /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Generated;
 			sourceTree = "<group>";
 		};
 		C1F8089A1D74803B00DDE35B /* Util */ = {
@@ -481,7 +470,6 @@
 				C1CCC0A81D9C6B9A0008B4A2 /* GalleryImageView.swift in Sources */,
 				C178C05C1DA1355C0010639F /* ChooseFilterCollectionViewCell.swift in Sources */,
 				C12886A91D95DB820040ADBF /* FutureAlbumCollectionViewCell.swift in Sources */,
-				BCF4D8EB1E3E6CD3002DA4F4 /* FireSD.swift in Sources */,
 				C1CCC0AC1D9C70D20008B4A2 /* GalleryCollectionViewCell.swift in Sources */,
 				C1F8089C1D74805600DDE35B /* AnimationEngine.swift in Sources */,
 				C178C0541DA036280010639F /* CustomBarButtonItem.swift in Sources */,
