@@ -44,29 +44,45 @@ class DevData {
     func saveDevData() {
         print ("saving dev data")
         
-        // save user to core data
-        let devUserID = "K1SmGyQGVLcxDvHWtKYBOmAqF6T2"
-        let email = "pete@picho.com"
-        let username = "pete@picho.com"
-        let password = "password"
-        let profileImage = UIImage(named: "PHProfileImage")
-        let profileImageURL = "https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144"
-        CoreDataModel.saveCurrentUser(userID: devUserID, username: username, email: email, password: password, profileImage: profileImage!)
-        
-        LoggedInUser.myUserID = devUserID
-        LoggedInUser.myUsername = username
-        LoggedInUser.myEmail = email
-        LoggedInUser.myProfilePicURL = profileImageURL
-        
-        ownerID = LoggedInUser.myUserID
-        ownerUsername = LoggedInUser.myUsername
-        ownerEmail = LoggedInUser.myEmail
-        ownerProfilePicURL = profileImageURL
+//        let currentUser = CurrentUser()
+//        
+//        // save user to core data
+//        let devUserID = "K1SmGyQGVLcxDvHWtKYBOmAqF6T2"
+//        let email = "pete@picho.com"
+//        let username = "pete@picho.com"
+//        let password = "password"
+//        let profileImage = UIImage(named: "PHProfileImage")
+//        let profileImageURL = "https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144"
+//        CoreDataModel.saveCurrentUser(userID: devUserID, username: username, email: email, password: password, profileImage: profileImage!)
+//        
+//        currentUser.userID = devUserID
+//        currentUser.username = username
+//        currentUser.email = email
+//        currentUser.profilePicURL = profileImageURL
+//        
+//        ownerID = currentUser.userID
+//        ownerUsername = currentUser.username
+//        ownerEmail = currentUser.email
+//        ownerProfilePicURL = profileImageURL
         
         
         // save albums
-        let owner = User(userID: ownerID!, username: ownerUsername!, email: ownerEmail!, profilePicURL: ownerProfilePicURL!)
+      //  let owner = User(userID: ownerID!, username: ownerUsername!, email: ownerEmail!, profilePicURL: ownerProfilePicURL!)
         
+        
+        
+        
+        
+        
+        
+        
+//        UserDefaults.standard.set("K1SmGyQGVLcxDvHWtKYBOmAqF6T2", forKey: "currentUserID")
+//        UserDefaults.standard.set("pete@picho.com", forKey: "currentUsername")
+//        UserDefaults.standard.set("pete@picho.com", forKey: "currentEmail")
+//        UserDefaults.standard.set("https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144", forKey: "currentProfilePicURL")
+//        UserDefaults.standard.set("password", forKey: "currentPassword")
+        
+        let owner = CurrentUser()
         
         let albums: [(title: String, description: String, created: String, available: String, remaining: Int, taken: Int, isActive: Bool)] = [
             

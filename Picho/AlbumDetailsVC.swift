@@ -50,6 +50,7 @@ class AlbumDetailsVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //   -------Declare Variables---------------------------
     
+    var currentUser: CurrentUser?
     
     var updateAlbumCollectionDelegate : UpdateAlbumCollectionDelegate?
     var unwindFromDeletingAlbumDelegate : UnwindFromDeletingAlbumDelegate?
@@ -242,6 +243,10 @@ class AlbumDetailsVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        currentUser = CurrentUser()
+    }
+    
     
     //   -------Methods---------------------------
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -297,8 +302,12 @@ class AlbumDetailsVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             guard let coverImage = self.albumCover.image else { return }
             
             // set owner's details as first contributor
-            guard let albumOwnerID = LoggedInUser.myUserID else { return }
-            guard let albumOwnerUsername = LoggedInUser.myUsername else { return }
+//            guard let albumOwnerID = CurrentUser.myUserID else { return }
+//            guard let albumOwnerUsername = CurrentUser.myUsername else { return }
+            guard let albumOwnerID = currentUser?.userID else { return }
+            guard let albumOwnerUsername = currentUser?.username else { return }
+            
+            
             var contributorsList: [Contributor] = []
             let owner = Contributor(userID: albumOwnerID, username: albumOwnerUsername, photosRemaining: ownerMediaCount, photosTaken: ownerMediaCount)
             contributorsList.append(owner)

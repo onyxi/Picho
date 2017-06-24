@@ -272,18 +272,18 @@ class DataService {
                     let username = user.value["username"] as! String
                     let profilePicURL = user.value["profilePicURL"] as! String
                     
-                    UserDefaults.standard.set(userID, forKey: "myUserID")
-                    UserDefaults.standard.set(email, forKey: "myEmail")
-                    UserDefaults.standard.set(username, forKey: "myUsername")
-                    UserDefaults.standard.set(password, forKey: "myPassword")
-                    UserDefaults.standard.set(profilePicURL, forKey: "myProfilePicURL")
+                    UserDefaults.standard.set(userID, forKey: "currentUserID")
+                    UserDefaults.standard.set(email, forKey: "currentEmail")
+                    UserDefaults.standard.set(username, forKey: "currentUsername")
+                    UserDefaults.standard.set(password, forKey: "currentPassword")
+                    UserDefaults.standard.set(profilePicURL, forKey: "currentProfilePicURL")
                     
-                    LoggedInUser.myUserID = userID
-                    LoggedInUser.myUsername = username
-                    LoggedInUser.myEmail = email
-                    LoggedInUser.myPassword = password
-                    LoggedInUser.myProfilePicURL = profilePicURL
-                    LoggedInUser.isLoaded = true
+//                    LoggedInUser.myUserID = userID
+//                    LoggedInUser.myUsername = username
+//                    LoggedInUser.myEmail = email
+//                    LoggedInUser.myPassword = password
+//                    LoggedInUser.myProfilePicURL = profilePicURL
+//                    LoggedInUser.isLoaded = true
                     
                     print ( userID, username, email, password, profilePicURL )
                     
@@ -302,13 +302,14 @@ class DataService {
         UserDefaults.standard.set(nil, forKey: "myUsername")
         UserDefaults.standard.set(nil, forKey: "myPassword")
         UserDefaults.standard.set(nil, forKey: "myProfilePicURL")
+        UserDefaults.standard.set(false, forKey: "isLoaded")
         
-        LoggedInUser.myUserID = nil
-        LoggedInUser.myUsername = nil
-        LoggedInUser.myEmail = nil
-        LoggedInUser.myPassword = nil
-        LoggedInUser.myProfilePicURL = nil
-        LoggedInUser.isLoaded = nil
+//        LoggedInUser.myUserID = nil
+//        LoggedInUser.myUsername = nil
+//        LoggedInUser.myEmail = nil
+//        LoggedInUser.myPassword = nil
+//        LoggedInUser.myProfilePicURL = nil
+//        LoggedInUser.isLoaded = nil
     }
     
     

@@ -97,18 +97,18 @@ class FBService {
                         }
                         
                         // store user's data on disk and in memory
-                        UserDefaults.standard.set(user?.uid, forKey: "myUserID")
-                        UserDefaults.standard.set(email, forKey: "myUsername")
-                        UserDefaults.standard.set(email, forKey: "myEmail")
-                        UserDefaults.standard.set(password, forKey: "myPassword")
-                        UserDefaults.standard.set("placeholder", forKey: "myProfilePicURL")
+                        UserDefaults.standard.set(user?.uid, forKey: "currentUserID")
+                        UserDefaults.standard.set(email, forKey: "currentUsername")
+                        UserDefaults.standard.set(email, forKey: "currentEmail")
+                        UserDefaults.standard.set(password, forKey: "currentPassword")
+                        UserDefaults.standard.set("placeholder", forKey: "currentProfilePicURL")
                         UserDefaults.standard.set(true, forKey: "isLoaded")
-                        LoggedInUser.myUserID = user?.uid
-                        LoggedInUser.myUsername = email
-                        LoggedInUser.myEmail = email
-                        LoggedInUser.myPassword = password
-                        LoggedInUser.myProfilePicURL = "placeholder"
-                        LoggedInUser.isLoaded = true
+//                        LoggedInUser.myUserID = user?.uid
+//                        LoggedInUser.myUsername = email
+//                        LoggedInUser.myEmail = email
+//                        LoggedInUser.myPassword = password
+//                        LoggedInUser.myProfilePicURL = "placeholder"
+//                        LoggedInUser.isLoaded = true
                         
                         // we have successfully logged in - return user data to caller
                         onComplete?(nil, user)
@@ -155,12 +155,12 @@ class FBService {
                             UserDefaults.standard.set(password, forKey: "myPassword")
                             UserDefaults.standard.set(profilePicURL, forKey: "myProfilePicURL")
                             UserDefaults.standard.set(true, forKey: "isLoaded")
-                            LoggedInUser.myUserID = userID
-                            LoggedInUser.myUsername = username
-                            LoggedInUser.myEmail = email
-                            LoggedInUser.myPassword = password
-                            LoggedInUser.myProfilePicURL = profilePicURL
-                            LoggedInUser.isLoaded = true
+//                            LoggedInUser.myUserID = userID
+//                            LoggedInUser.myUsername = username
+//                            LoggedInUser.myEmail = email
+//                            LoggedInUser.myPassword = password
+//                            LoggedInUser.myProfilePicURL = profilePicURL
+//                            LoggedInUser.isLoaded = true
                             
                             // call back to fetch user data
                             self.authenticateDelegate?.didAuthenticate()
@@ -213,17 +213,17 @@ class FBService {
                     let profilePicURL = user.value["profilePicURL"] as! String
                     
                     // store user's data on disk and in memory
-                    //                    UserDefaults.standard.set(userID, forKey: "myUserID")
-                    //                    UserDefaults.standard.set(email, forKey: "myEmail")
-                    //                    UserDefaults.standard.set(username, forKey: "myUsername")
-                    //                    UserDefaults.standard.set(password, forKey: "myPassword")
-                    //                    UserDefaults.standard.set(profilePicURL, forKey: "myProfilePicURL")
-                    LoggedInUser.myUserID = userID
-                    LoggedInUser.myUsername = username
-                    LoggedInUser.myEmail = email
-                    LoggedInUser.myPassword = password
-                    LoggedInUser.myProfilePicURL = profilePicURL
-                    LoggedInUser.isLoaded = true
+                    UserDefaults.standard.set(userID, forKey: "myUserID")
+                    UserDefaults.standard.set(email, forKey: "myEmail")
+                    UserDefaults.standard.set(username, forKey: "myUsername")
+                    UserDefaults.standard.set(password, forKey: "myPassword")
+                    UserDefaults.standard.set(profilePicURL, forKey: "myProfilePicURL")
+//                    LoggedInUser.myUserID = userID
+//                    LoggedInUser.myUsername = username
+//                    LoggedInUser.myEmail = email
+//                    LoggedInUser.myPassword = password
+//                    LoggedInUser.myProfilePicURL = profilePicURL
+//                    LoggedInUser.isLoaded = true
                     
                     print ("User loaded")
                     
@@ -414,6 +414,8 @@ class FBService {
     func fetchAlbumMedia(album: Album) {
         var fetchedMedia = [Media]()
     
+        let currentUser = CurrentUser()
+        
         if album.isActive == true {
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             let managedContext = appDelegate?.managedObjectContext
@@ -433,7 +435,7 @@ class FBService {
             }
             
             for result in results {
-                let media = Media(ownerID: LoggedInUser.myUserID!, ownerUsername: LoggedInUser.myUsername!, mediaID: result.value(forKey: "mediaID") as! String, mediaURL: nil, image: result.value(forKey: "mediaItem") as! UIImage, createdDate: result.value(forKey: "createdDate") as! Date)
+                let media = Media(ownerID: currentUser.userID, ownerUsername: currentUser.username, mediaID: result.value(forKey: "mediaID") as! String, mediaURL: nil, image: result.value(forKey: "mediaItem") as! UIImage, createdDate: result.value(forKey: "createdDate") as! Date)
                 fetchedMedia.append(media)
             }
             
@@ -486,9 +488,10 @@ class FBService {
         var notifMax = 15
         var fetchedNotifs = [UserNotification]()
         
-        guard let notifOwnerID = LoggedInUser.myUserID else { print ("could not fetch notifs"); return }
+        //guard let notifOwnerID = LoggedInUser.myUserID else { print ("could not fetch notifs"); return }
+        let currentUser = CurrentUser()
         
-        let notifsRef = mainDBRef.child("userNotifications").child(notifOwnerID)
+        let notifsRef = mainDBRef.child("userNotifications").child(currentUser.userID)
         
         
         //////////// UNPACK PROPERLY AND FETCH OBJECT INFO FOR NOTIF ARRAY!!!
@@ -568,7 +571,7 @@ class FBService {
                                             
                                             // all notif info fetched - can now create Notif
                                             let unpackedNotif = UserNotification(
-                                                userID: notifOwnerID,
+                                                userID: currentUser.userID,
                                                 createdDate: notifCreatedDate,
                                                 notifType: notifType,
                                                 objectType: notifObjectType,
@@ -613,7 +616,7 @@ class FBService {
                                                 
                                                 // all notif info fetched - can now create Notif
                                                 let unpackedNotif = UserNotification(
-                                                    userID: notifOwnerID,
+                                                    userID: currentUser.userID,
                                                     createdDate: notifCreatedDate,
                                                     notifType: notifType,
                                                     objectType: notifType,
@@ -687,7 +690,11 @@ class FBService {
     func createNewAlbum(album: Album) {
         //title: String, description: String, availableDate: Date, coverImage: UIImage, contributors: [Contributor]) {
         
-        guard let ownerID = LoggedInUser.myUserID else { print ("user not logged in"); return }
+        let currentUser = CurrentUser()
+        
+        //guard let ownerID = currentUser.userID else { print ("user not logged in"); return }
+        let ownerID = currentUser.userID
+        
         let albumID = "\(NSUUID().uuidString)"
         
         
@@ -817,7 +824,7 @@ class FBService {
     func commitMediaToAlbum(media: UIImage, album: Album) {
         
         // get user from Core Data
-        let userID = LoggedInUser.myUserID
+        let userID = CurrentUser().userID // is this needed????
         
         // save media to Core Data
         
@@ -834,7 +841,8 @@ class FBService {
     func uploadMediaToFirebase(media: UIImage, album: Album) {
         
         // get user from Core Data
-        let userID = LoggedInUser.myUserID
+        //let userID = LoggedInUser.myUserID
+        let currentUser = CurrentUser()
         
         let mediaID = "\(NSUUID().uuidString)"
         
@@ -853,7 +861,7 @@ class FBService {
                     "createdDate" : FIRServerValue.timestamp() as AnyObject,
                     "mediaID" : mediaID as AnyObject,
                     "mediaURL" : mediaURL as AnyObject,
-                    "ownerID" : userID as AnyObject
+                    "ownerID" : currentUser.userID as AnyObject
                 ]
                 
                 let mediaDatabaseRef = self.mainDBRef.child("albumMedia").child(album.albumID).child(mediaID)

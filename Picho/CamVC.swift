@@ -28,6 +28,9 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
 
 
 //   -------Declare Variables---------------------------
+    
+    var currentUser: CurrentUser?
+    
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput!
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -128,6 +131,8 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        currentUser = CurrentUser()
         
 //        let savedCurrentAlbumTitle = UserDefaults.standard.string(forKey: "savedCurrentAlbum")! as String // load name of last chosen album
         //        let savedCurrentAlbumArray = CoreDataModel.fetchAlbums(isAvailable: false, source: nil, albumName: savedCurrentAlbumTitle)
@@ -321,7 +326,7 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
         
         var mediaCount = 0
         for contributor in album.contributors {
-            if contributor.userID == LoggedInUser.myUserID {
+            if contributor.userID == currentUser?.userID {
                 mediaCount += contributor.photosTaken
             }
         }

@@ -1,5 +1,5 @@
 //
-//  Notif.swift
+//  UserNotification.swift
 //  Picho
 //
 //  Created by Pete on 11/04/2017.

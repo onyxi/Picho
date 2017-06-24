@@ -43,6 +43,7 @@ class PicsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
 //   -------Declare Variables---------------------------
     
+    var currentUser: CurrentUser?
 
     var picCollectionEngine: PicCollectionEngine!
     var currentAlbumSet = "past" // flag to signal past/future albums being displayed
@@ -258,31 +259,44 @@ class PicsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func fetchUserData() {
-       
-        guard let userLoaded = LoggedInUser.isLoaded else { return }
-        if userLoaded {
-            guard let myUserID = LoggedInUser.myUserID else { return }
-            guard let myUsername = LoggedInUser.myUsername else { return }
-            guard let myEmail = LoggedInUser.myEmail else { return }
-            guard let myProfilePicURL = LoggedInUser.myProfilePicURL else { return }
-            let currentUser = User(userID: myUserID, username: myUsername, email: myEmail, profilePicURL: myProfilePicURL)
-            
-//            let dataService = DataService()
-//            dataService.fetchAlbumsDelegate = self
-//            dataService.fetchAlbumData(user: loggedInUser)
-            
-            
-            /// Get future album data first from core data
-            
-            
-            print ("reached")
-            let fbService = FBService()
-            fbService.fetchAlbumsDelegate = self
-            fbService.fetchAlbumData(user: currentUser)
-            
-        } else {
-            print ("authenticated but no local user details")
-        }
+       currentUser = CurrentUser()
+//        let currentUser = CurrentUser(
+//            userID: UserDefaults.standard.value(forKey: "currentUserID") as! String ,
+//            username: UserDefaults.standard.value(forKey: "currentUsername") as! String,
+//            email: UserDefaults.standard.value(forKey: "currentEmail") as! String,
+//            profilePicURL: UserDefaults.standard.value(forKey: "currentProfilePicURL") as! String,
+//            password: UserDefaults.standard.value(forKey: "currentPassword") as! String,
+//            isLoaded: true
+//        )
+        
+        let fbService = FBService()
+        fbService.fetchAlbumsDelegate = self
+        fbService.fetchAlbumData(user: currentUser!)
+        
+//        guard let userLoaded = LoggedInUser.isLoaded else { return }
+//        if userLoaded {
+//            guard let myUserID = LoggedInUser.myUserID else { return }
+//            guard let myUsername = LoggedInUser.myUsername else { return }
+//            guard let myEmail = LoggedInUser.myEmail else { return }
+//            guard let myProfilePicURL = LoggedInUser.myProfilePicURL else { return }
+//            let currentUser = User(userID: myUserID, username: myUsername, email: myEmail, profilePicURL: myProfilePicURL)
+//            
+////            let dataService = DataService()
+////            dataService.fetchAlbumsDelegate = self
+////            dataService.fetchAlbumData(user: loggedInUser)
+//            
+//            
+//            /// Get future album data first from core data
+//            
+//            
+//            print ("reached")
+//            let fbService = FBService()
+//            fbService.fetchAlbumsDelegate = self
+//            fbService.fetchAlbumData(user: currentUser)
+//            
+//        } else {
+//            print ("authenticated but no local user details")
+//        }
     }
     
     

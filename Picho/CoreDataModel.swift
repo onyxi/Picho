@@ -47,13 +47,14 @@ class CoreDataModel {
     
     static func newActiveAlbum(coverImage: UIImage, titleText: String, descriptionText: String, availableDate: Date, contributors: [Contributor]) {
         let albumID = NSUUID().uuidString
+        let currentUser = CurrentUser()
         
         guard  let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.managedObjectContext
         let entity = NSEntityDescription.entity(forEntityName: "ActiveAlbum", in: managedContext)
         let objectToSave = NSManagedObject(entity: entity!, insertInto: managedContext)
         objectToSave.setValue(albumID, forKey: "albumID")
-        objectToSave.setValue(LoggedInUser.myUserID, forKey: "ownerID")
+        objectToSave.setValue(currentUser.userID, forKey: "ownerID")
         objectToSave.setValue(coverImage, forKey: "coverImage")
         objectToSave.setValue(titleText, forKey: "titleText")
         objectToSave.setValue(descriptionText, forKey: "descriptionText")

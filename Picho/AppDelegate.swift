@@ -88,6 +88,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          UserDefaults.standard.set("CE23DE59-ADB0-4A61-B7E1-BC2DE25DF9DC", forKey: "savedCurrentAlbumID")
         
         
+        
+        UserDefaults.standard.set("K1SmGyQGVLcxDvHWtKYBOmAqF6T2", forKey: "currentUserID")
+        UserDefaults.standard.set("pete@picho.com", forKey: "currentUsername")
+        UserDefaults.standard.set("pete@picho.com", forKey: "currentEmail")
+        UserDefaults.standard.set("https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144", forKey: "currentProfilePicURL")
+        UserDefaults.standard.set("password", forKey: "currentPassword")
+        
         //// check if logged into Firebase
         
 //        if let userLoggedInToFirebase = UserDefaults.standard.value(forKey: "userLoggedInToFirebase") as? Bool {
@@ -105,33 +112,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //}
 
         
-        func loadCurrentUser() {
-            
-            guard FIRAuth.auth()?.currentUser != nil else { print ("user not authenticated")
-                return }
-            guard (UserDefaults.standard.value(forKey: "isLoaded") as? Bool) != nil else { print ("user details not saved locally")
-                return }
-            guard let myUserID = UserDefaults.standard.value(forKey: "myUserID") as? String else { print ("no user ID")
-                return }
-            guard let myUsername = UserDefaults.standard.value(forKey: "myUsername") as? String else { print ("no username")
-                return }
-            guard let myPassword = UserDefaults.standard.value(forKey: "myPassword") as? String else { print ("no password")
-                return }
-            guard let myEmail = UserDefaults.standard.value(forKey: "myEmail") as? String else { print ("no email")
-                return }
-            guard let myProfilePicURL = UserDefaults.standard.value(forKey: "myProfilePicURL") as? String else { print ("no profile pic url")
-                return }
-            
-            LoggedInUser.myUserID = myUserID
-            LoggedInUser.myUsername = myUsername
-            LoggedInUser.myPassword = myPassword
-            LoggedInUser.myEmail = myEmail
-            LoggedInUser.myProfilePicURL = myProfilePicURL
-            LoggedInUser.isLoaded = true
-            
-            print ("User loaded")
-        }
-        loadCurrentUser()
+//        func loadCurrentUser() {
+//            
+//            guard FIRAuth.auth()?.currentUser != nil else { print ("user not authenticated")
+//                return }
+//            guard (UserDefaults.standard.value(forKey: "isLoaded") as? Bool) != nil else { print ("user details not saved locally")
+//                return }
+//            guard let myUserID = UserDefaults.standard.value(forKey: "myUserID") as? String else { print ("no user ID")
+//                return }
+//            guard let myUsername = UserDefaults.standard.value(forKey: "myUsername") as? String else { print ("no username")
+//                return }
+//            guard let myPassword = UserDefaults.standard.value(forKey: "myPassword") as? String else { print ("no password")
+//                return }
+//            guard let myEmail = UserDefaults.standard.value(forKey: "myEmail") as? String else { print ("no email")
+//                return }
+//            guard let myProfilePicURL = UserDefaults.standard.value(forKey: "myProfilePicURL") as? String else { print ("no profile pic url")
+//                return }
+//            
+//            CurrentUser.userID = myUserID
+//            CurrentUser.username = myUsername
+//            CurrentUser.password = myPassword
+//            CurrentUser.email = myEmail
+//            CurrentUser.profilePicURL = myProfilePicURL
+//            CurrentUser.isLoaded = true
+//            
+//            print ("User loaded")
+//        }
+//        loadCurrentUser()
         
         // [START UPLOADING TEST DATA]
     //    DevData.instance.saveDevData()
