@@ -48,7 +48,6 @@
 		C178C0601DA170CD0010639F /* GalleryMainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178C05F1DA170CD0010639F /* GalleryMainCollectionViewCell.swift */; };
 		C178C0621DA1921B0010639F /* GalleryCoverCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178C0611DA1921B0010639F /* GalleryCoverCollectionViewCell.swift */; };
 		C18935211DB37D6200301A7A /* DatePickerPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18935201DB37D6200301A7A /* DatePickerPopoverVC.swift */; };
-		C1B760B11DE64A7A00C75920 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B760B01DE64A7A00C75920 /* CoreDataModel.swift */; };
 		C1B7FF5C1D81FC39006D72F8 /* PicsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF5B1D81FC39006D72F8 /* PicsVC.swift */; };
 		C1B7FF5E1D81FC48006D72F8 /* CamVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF5D1D81FC48006D72F8 /* CamVC.swift */; };
 		C1B7FF601D81FC59006D72F8 /* NotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7FF5F1D81FC59006D72F8 /* NotesVC.swift */; };
@@ -115,7 +114,6 @@
 		C178C05F1DA170CD0010639F /* GalleryMainCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryMainCollectionViewCell.swift; sourceTree = "<group>"; };
 		C178C0611DA1921B0010639F /* GalleryCoverCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCoverCollectionViewCell.swift; sourceTree = "<group>"; };
 		C18935201DB37D6200301A7A /* DatePickerPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerPopoverVC.swift; sourceTree = "<group>"; };
-		C1B760B01DE64A7A00C75920 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		C1B7FF5B1D81FC39006D72F8 /* PicsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicsVC.swift; sourceTree = "<group>"; };
 		C1B7FF5D1D81FC48006D72F8 /* CamVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamVC.swift; sourceTree = "<group>"; };
 		C1B7FF5F1D81FC59006D72F8 /* NotesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 		BCA916111E71EA7C0076396B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C1B760B01DE64A7A00C75920 /* CoreDataModel.swift */,
 				BC1F560E1E71BFAC0045D59E /* DataService.swift */,
 				BCA916121E71EAAB0076396B /* AuthService.swift */,
 				BCA916141E7463F20076396B /* DevData.swift */,
@@ -477,7 +474,6 @@
 				C14B33091D745DF000A7FBC0 /* CustomButton.swift in Sources */,
 				C178C05A1DA123C30010639F /* ChooseAlbumTableViewCell.swift in Sources */,
 				C178C04B1D9F07F40010639F /* CustomTextView.swift in Sources */,
-				C1B760B11DE64A7A00C75920 /* CoreDataModel.swift in Sources */,
 				C1B7FF651D89E580006D72F8 /* PastAlbumCollectionViewCell.swift in Sources */,
 				BC1F560F1E71BFAC0045D59E /* DataService.swift in Sources */,
 				BCA916131E71EAAB0076396B /* AuthService.swift in Sources */,

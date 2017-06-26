@@ -299,9 +299,9 @@ class FBService {
         var unpackedFutureAlbums = [Album]()
         
         // get local active albums
-        if let activeAlbums = CoreDataModel.fetchActiveAlbums() {
-            unpackedFutureAlbums = activeAlbums
-        }
+//        if let activeAlbums = CoreDataModel.fetchActiveAlbums() {
+//            unpackedFutureAlbums = activeAlbums
+//        }
         
         
         // get cloud inactive albums
@@ -934,5 +934,40 @@ class FBService {
         
     }
     // [END delete album]
+    
+    
+    
+    
+    
+    //--------------------------------------------
+    // Fetch Filters
+    static func fetchFilters () -> [NSManagedObject] {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let managedContext = appDelegate?.managedObjectContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Filter")
+        
+        var results: [NSManagedObject] = []
+        
+        let sectionSortDescriptor = [NSSortDescriptor(key: "lastSelected", ascending: false)]
+        fetchRequest.sortDescriptors = sectionSortDescriptor
+        
+        do {
+            if let fetchResult = try? managedContext?.fetch(fetchRequest) {
+                results = fetchResult!
+            }
+        }
+        
+        return results
+    }
+    
+    // update filter usage data
+    static func updateFilterInfo (filter: NSManagedObject) {
+        guard  let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        filter.setValue(Date(), forKey: "lastSelected")
+        appDelegate.saveContext()
+    }
+    
+    
+    
     
 }

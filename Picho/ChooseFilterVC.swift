@@ -50,7 +50,7 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
 //        }
         
         // filters from Core Data - sorted by last used date
-        self.filters = CoreDataModel.fetchFilters()
+  //      self.filters = CoreDataModel.fetchFilters()
         
         // set View Controller's main image variable to album's Cover Image
         //let currentAlbumCover = currentAlbum?.value(forKey: "coverImage") as? NSManagedObject
@@ -67,7 +67,7 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
     
     // select first row in table as initial selection
     override func viewWillAppear(_ animated: Bool) {
-        self.filters = CoreDataModel.fetchFilters()
+        self.filters = FBService.fetchFilters()
         collectionView.reloadData()
         
         let path = NSIndexPath(row: 0, section: 0) as IndexPath
@@ -117,7 +117,7 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // update 'last selected' date
-        CoreDataModel.updateFilterInfo (filter: filters[indexPath.row])
+        FBService.updateFilterInfo (filter: filters[indexPath.row])
         
         // set background colour
         self.filterIndex = indexPath.row // set global index for selected filter
