@@ -13,55 +13,34 @@ class PicCollectionEngine {
     var pastCollectionCon: NSLayoutConstraint!
     var futureCollectionCon: NSLayoutConstraint!
     
-    
-    
-    // initialise animation engine and recieve constraints to animate
+    // initialise animation engine, recieve constraints to animate and set initial position of views
     init (pastCollectionX: NSLayoutConstraint, futureCollectionX: NSLayoutConstraint) {
-        
-        ////////// set initial position of views //////////
-        
         self.pastCollectionCon = pastCollectionX
         self.futureCollectionCon = futureCollectionX
-        
-        setViewStartPosition()
-        
-        
-        
+        self.pastCollectionCon.constant = screenCenterPosition
+        self.futureCollectionCon.constant = screenRightPosition
     }
-    
-    
-    func setViewStartPosition() {
-        self.pastCollectionCon.constant = PicCollectionEngine.screenCenterPosition
-        self.futureCollectionCon.constant = PicCollectionEngine.screenRightPosition
-    }
-    
-    
-    
-    
-    
     
     /// define coordinates of centre-screen, off-screen-right and off-screen-left positions for display objects
-    
-    class var screenWidth: CGFloat {
+    var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
     }
     
-    class var screenLeftPosition: CGFloat {
+    var screenLeftPosition: CGFloat {
         return 0 - screenWidth
     }
     
-    class var screenCenterPosition: CGFloat {
+    var screenCenterPosition: CGFloat {
         return 0
     }
     
-    class var screenRightPosition: CGFloat {
+    var screenRightPosition: CGFloat {
         return screenWidth
     }
     
     
     
-    // animate items
-    
+    // animate collection view objects - toggle to left/right screen
     func switchViews(showView: String) {
         
         var pastNewDestination: CGFloat!
@@ -69,32 +48,28 @@ class PicCollectionEngine {
         
         switch showView {
         case "past":
-            pastNewDestination = PicCollectionEngine.screenCenterPosition
-            futureNewDestination = PicCollectionEngine.screenRightPosition
+            pastNewDestination = screenCenterPosition
+            futureNewDestination = screenRightPosition
         case "future":
-            pastNewDestination = PicCollectionEngine.screenLeftPosition
-            futureNewDestination = PicCollectionEngine.screenCenterPosition
+            pastNewDestination = screenLeftPosition
+            futureNewDestination = screenCenterPosition
         default:
             break
         }
         
+        let movePastCollection = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)
+        movePastCollection?.springBounciness = 0
+        movePastCollection?.springSpeed = 20
+        movePastCollection?.toValue = pastNewDestination
+        pastCollectionCon.pop_add(movePastCollection, forKey: "movePastCollectionToNewPosition")
         
-        let movePast = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)
-        movePast?.springBounciness = 0
-        movePast?.springSpeed = 20
-        movePast?.toValue = pastNewDestination
-        pastCollectionCon.pop_add(movePast, forKey: "movePastCollectionToNewPosition")
-        
-        let moveFuture = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)
-        moveFuture?.springBounciness = 0
-        moveFuture?.springSpeed = 20
-        moveFuture?.toValue = futureNewDestination
-        futureCollectionCon.pop_add(moveFuture, forKey: "moveFutureCollectionToNewPosition")
+        let moveFutureCollection = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)
+        moveFutureCollection?.springBounciness = 0
+        moveFutureCollection?.springSpeed = 20
+        moveFutureCollection?.toValue = futureNewDestination
+        futureCollectionCon.pop_add(moveFutureCollection, forKey: "moveFutureCollectionToNewPosition")
         
     }
-    
-    
-    
     
     
 }

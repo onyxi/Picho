@@ -6,12 +6,8 @@
 //  Copyright © 2017 Onyx Interactive. All rights reserved.
 //
 
-
-
 import Foundation
 import FirebaseAuth
-
-// typealias Completion = (_ errMsg: String?, _ data: AnyObject?) -> Void
 
 class AuthService {
     private static let _instance = AuthService()
