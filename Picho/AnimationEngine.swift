@@ -102,22 +102,8 @@ class AnimationEngine {
                 conToAnimate.pop_add(moveAnim, forKey: "moveSet2ToNewPosition")
                 index += 1
             }
-            
         }
-        
-        
     }
-    
-    
-}
-
-
-
-
-extension AnimationEngine {
-    
-    
-    
     
     
     
