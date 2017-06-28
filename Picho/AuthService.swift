@@ -15,8 +15,6 @@ class AuthService {
         return _instance
     }
     
-    var fetchDataAfterLogin: FetchDataAfterLogInDelegate?
-    
     
     func createAccount(email: String, password: String, onComplete: Completion?) {
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
@@ -26,7 +24,8 @@ class AuthService {
             } else {
                 // login and advance to app
                 if user?.uid != nil {
-                    DataService.instance.createNewUser(uid: user!.uid, email: email, password: password, username: email)
+                   // DataService.instance.createNewUser(uid: user!.uid, email: email, password: password, username: email)
+                    FBService().createNewUser(uid: user!.uid, email: email, password: password, username: email)
                     FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
                         if error != nil {
                             // show error to user
@@ -35,7 +34,7 @@ class AuthService {
                         // we have successfully logged in
                         onComplete?(nil, user)
                         UserDefaults.standard.set(true, forKey: "userLoggedInToFirebase")
-                        DataService.instance.getAndStoreLoggedInUserInfo(userID: user!.uid, loggingIn: true)
+                        FBService().getAndStoreLoggedInUserInfo(userID: user!.uid, loggingIn: true)
                     })
                     
                 } else {
@@ -54,7 +53,7 @@ class AuthService {
                 // we have successfully logged in
                 onComplete?(nil, user)
                 UserDefaults.standard.set(true, forKey: "userLoggedInToFirebase")
-                DataService.instance.getAndStoreLoggedInUserInfo(userID: user!.uid, loggingIn: true)
+                FBService().getAndStoreLoggedInUserInfo(userID: user!.uid, loggingIn: true)
             }
         })
         

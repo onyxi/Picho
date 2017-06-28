@@ -142,7 +142,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
         do {
             try  FIRAuth.auth()?.signOut()
             
-            DataService().signOutLocal()
+            FBService().signOutLocal()
             print ("signed out")
             self.dismiss(animated: true, completion: nil)
             delegate?.goToPicsVC()

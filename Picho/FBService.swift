@@ -198,6 +198,51 @@ class FBService {
         }
     }
     
+    
+    
+    // save a new user to firebase
+    func createNewUser(uid: String, email: String? = "", password: String, username: String? = "") {
+        let profile: Dictionary<String, AnyObject> = ["email": email as AnyObject, "password" : password as AnyObject, "username": username as AnyObject, "profilePicURL" : "placeholder" as AnyObject]
+        
+        mainDBRef.child("users").child(uid).child("profile").setValue(profile)
+        
+    }
+    
+    func getAndStoreLoggedInUserInfo(userID : String, loggingIn: Bool) {
+        let userRef = mainDBRef.child("users").child(userID)
+        userRef.observeSingleEvent(of: FIRDataEventType.value) { (snapshot: FIRDataSnapshot) in
+            if let userData = snapshot.value as? [String : AnyObject] {
+                for user in userData {
+                    let email = user.value["email"] as! String
+                    let password = user.value["password"] as! String
+                    let username = user.value["username"] as! String
+                    let profilePicURL = user.value["profilePicURL"] as! String
+                    
+                    UserDefaults.standard.set(userID, forKey: "currentUserID")
+                    UserDefaults.standard.set(email, forKey: "currentEmail")
+                    UserDefaults.standard.set(username, forKey: "currentUsername")
+                    UserDefaults.standard.set(password, forKey: "currentPassword")
+                    UserDefaults.standard.set(profilePicURL, forKey: "currentProfilePicURL")
+                    
+                    //                    LoggedInUser.myUserID = userID
+                    //                    LoggedInUser.myUsername = username
+                    //                    LoggedInUser.myEmail = email
+                    //                    LoggedInUser.myPassword = password
+                    //                    LoggedInUser.myProfilePicURL = profilePicURL
+                    //                    LoggedInUser.isLoaded = true
+                    
+                    print ( userID, username, email, password, profilePicURL )
+                    
+                    // UPLOAD DEVELOPMENT DATA
+                    //DevData.instance.uploadDataToFirebase()
+                    
+                }
+            }
+        }
+    }
+    
+    
+    
     func loadUserDataFromFB(userID: String) {
         
         // fetch user's data from Database
@@ -231,6 +276,24 @@ class FBService {
             }
         }
     }
+    
+    
+    func signOutLocal() {
+        UserDefaults.standard.set(nil, forKey: "myUserID")
+        UserDefaults.standard.set(nil, forKey: "myEmail")
+        UserDefaults.standard.set(nil, forKey: "myUsername")
+        UserDefaults.standard.set(nil, forKey: "myPassword")
+        UserDefaults.standard.set(nil, forKey: "myProfilePicURL")
+        UserDefaults.standard.set(false, forKey: "isLoaded")
+        
+        //        LoggedInUser.myUserID = nil
+        //        LoggedInUser.myUsername = nil
+        //        LoggedInUser.myEmail = nil
+        //        LoggedInUser.myPassword = nil
+        //        LoggedInUser.myProfilePicURL = nil
+        //        LoggedInUser.isLoaded = nil
+    }
+    
     
     // [END Auth processes]
     

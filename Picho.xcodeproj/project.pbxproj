@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3E268FEF01A273D3ADE82E55 /* Pods_Picho.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9783C45BE39DA1D18FF8AB71 /* Pods_Picho.framework */; };
-		BC1F560F1E71BFAC0045D59E /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F560E1E71BFAC0045D59E /* DataService.swift */; };
 		BC31A9B01E1A7C7700EB4F71 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC31A9AF1E1A7C7600EB4F71 /* CustomView.swift */; };
 		BC9171841EAD498200C85A8D /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9171831EAD498200C85A8D /* Media.swift */; };
 		BCA557651E9D776A00D8B12B /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA557641E9D776A00D8B12B /* UserNotification.swift */; };
@@ -70,7 +69,6 @@
 		8E1F76C29F9B799FF815926C /* Pods-AlbmsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbmsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbmsApp/Pods-AlbmsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9783C45BE39DA1D18FF8AB71 /* Pods_Picho.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Picho.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A907B5A058FA7448E60B6D12 /* Pods-Picho.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Picho.release.xcconfig"; path = "Pods/Target Support Files/Pods-Picho/Pods-Picho.release.xcconfig"; sourceTree = "<group>"; };
-		BC1F560E1E71BFAC0045D59E /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		BC31A9AF1E1A7C7600EB4F71 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		BC3486C51E355A3200B9191C /* Picho.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Picho.entitlements; sourceTree = SOURCE_ROOT; };
 		BC9171831EAD498200C85A8D /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 		BCA916111E71EA7C0076396B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BC1F560E1E71BFAC0045D59E /* DataService.swift */,
 				BCA916121E71EAAB0076396B /* AuthService.swift */,
 				BCA916141E7463F20076396B /* DevData.swift */,
 				BCC3B0FC1E867185008F1686 /* FBService.swift */,
@@ -475,7 +472,6 @@
 				C178C05A1DA123C30010639F /* ChooseAlbumTableViewCell.swift in Sources */,
 				C178C04B1D9F07F40010639F /* CustomTextView.swift in Sources */,
 				C1B7FF651D89E580006D72F8 /* PastAlbumCollectionViewCell.swift in Sources */,
-				BC1F560F1E71BFAC0045D59E /* DataService.swift in Sources */,
 				BCA916131E71EAAB0076396B /* AuthService.swift in Sources */,
 				C12886AF1D96BA320040ADBF /* RoundedImage.swift in Sources */,
 				C178C0621DA1921B0010639F /* GalleryCoverCollectionViewCell.swift in Sources */,
