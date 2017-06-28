@@ -11,14 +11,14 @@ import UIKit
 extension UIImageView {
     
     func loadImageUsingCacheWithURLString(url: String) {
-        let coverURL = NSURL(string: url)
-        var request = URLRequest(url: coverURL as! URL)
+        let coverURL = URL(string: url)
+        let request = URLRequest(url: coverURL!)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            print (data)
+            print (data!)
             //download hit an error so let's return out
             if error != nil {
-                print (error)
+                print (error!)
                 return
             }
             
@@ -26,10 +26,8 @@ extension UIImageView {
                 self.image = UIImage(data: data!)
             })
             
-            
         }
         task.resume()
-
     }
     
 }
