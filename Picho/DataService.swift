@@ -196,7 +196,6 @@ class DataService {
     // create a new album - save to local disk and attempt to save copy to firebase
     func createNewAlbum(album: Album) {
         
-        let currentUser = CurrentUser()
         let albumID = "\(NSUUID().uuidString)" // create random ID for new album
         
         if album.isActive { // save album to local disk
