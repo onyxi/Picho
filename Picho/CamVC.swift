@@ -136,7 +136,7 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
         
 //        let savedCurrentAlbumTitle = UserDefaults.standard.string(forKey: "savedCurrentAlbum")! as String // load name of last chosen album
         //        let savedCurrentAlbumArray = CoreDataModel.fetchAlbums(isAvailable: false, source: nil, albumName: savedCurrentAlbumTitle)
-        activeAlbums = FBService().fetchLocalActiveAlbums()
+        activeAlbums = DataService().fetchLocalActiveAlbums(albumID: nil)
         getCurrentlySelectedAlbum()
         
         //  let savedCurrentAlbum = savedCurrentAlbumArray[0]
@@ -272,7 +272,7 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
 //            let media = image
             
             if currentlySelectedAlbum != nil {
-                let fbService = FBService()
+                let fbService = DataService()
                 fbService.uploadMediaDelegate = self
                 fbService.commitMediaToAlbum(media: image, album: currentlySelectedAlbum!)
             }

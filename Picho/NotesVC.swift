@@ -46,9 +46,9 @@ class NotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIP
         // import Notifications from Core Data
         //self.notifications = CoreDataModel.fetchNotifications()
         
-        let fbService = FBService()
+        let fbService = DataService()
         fbService.fetchNotifsDelegate = self
-        fbService.fetchNotifs()
+        fbService.fetchNotifications()
         
         /// config tableView
         tableView.delegate = self
@@ -198,7 +198,7 @@ class NotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIP
 //        let selectedNotificationAlbum = selectedNotification.value(forKey: "album") as? NSManagedObject
         let selectedNotif = notifs[indexPath.row - 1]
         let selectedNotificationAlbumID = selectedNotif.albumID
-        let fbService = FBService()
+        let fbService = DataService()
         fbService.fetchSingleAlbumDelegate = self
         fbService.fetchSingleAlbumData(ownerID: selectedNotif.objectOwnerID!, albumID: selectedNotif.albumID!)
        

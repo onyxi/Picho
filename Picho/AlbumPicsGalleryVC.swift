@@ -48,6 +48,9 @@ class AlbumPicsGalleryVC: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    var albumOwner: User?
+    
+    
 //    private var _selectedAlbum: NSManagedObject?
 //    var selectedAlbum: NSManagedObject {
 //        get {
@@ -73,11 +76,11 @@ class AlbumPicsGalleryVC: UIViewController, UICollectionViewDelegate, UICollecti
         
         
         
-        let fbService = FBService()
+        let fbService = DataService()
         fbService.fetchAlbumMediaDelegate = self
         //fbService.fetchAlbumMedia(albumID: selectedAlbum.albumID, mediaCount: selectedAlbum.mediaCount)
         print(selectedAlbum)
-        fbService.fetchAlbumMedia(album: selectedAlbum)
+        fbService.fetchAlbumMedia(user: albumOwner!, album: selectedAlbum)
         
         // import album images collection
 //        self.coverImages.append(albumCoverImage[0])

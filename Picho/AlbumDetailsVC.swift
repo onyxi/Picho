@@ -272,7 +272,7 @@ class AlbumDetailsVC: UIViewController, UIImagePickerControllerDelegate, UINavig
        // }
         
         if let viewingAlbum = _selectedAlbum {
-            let fbService = FBService()
+            let fbService = DataService()
             fbService.deleteAlbumDelegate = self
             fbService.deleteAlbum(album: viewingAlbum)
         }
@@ -314,7 +314,7 @@ class AlbumDetailsVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             
             let newAlbum = Album(albumID: "", ownerID: albumOwnerID, title: albumTitle, description: albumDescription, createdDate: Date(), availableDate: dateAvailable, contributors: contributorsList, coverURL: nil, coverImage: coverImage, isActive: true)
             
-            let fbService = FBService()
+            let fbService = DataService()
             fbService.uploadAlbumDelegate = self
             //fbService.createNewAlbum(title: albumTitle, description: albumDescription, availableDate: dateAvailable, coverImage: coverImage, contributors: contributorsList)
             fbService.createNewAlbum(album: newAlbum)

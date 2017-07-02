@@ -29,7 +29,8 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
     
     // set up variables to hold managed objects from core data
     var currentAlbumImage: UIImage?
-    var filters: [NSManagedObject] = []
+    var filters2: [NSManagedObject] = []
+    var filters : [Filter] = []
     
     var currentlySelectedAlbum: Album?
     
@@ -67,7 +68,7 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
     
     // select first row in table as initial selection
     override func viewWillAppear(_ animated: Bool) {
-        self.filters = FBService.fetchFilters()
+        self.filters = DataService.fetchFilters()
         collectionView.reloadData()
         
         let path = NSIndexPath(row: 0, section: 0) as IndexPath
@@ -105,7 +106,7 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         // set item titles
-        let filterName = filters[indexPath.row].value(forKey: "name") as? String
+        let filterName = filters[indexPath.row].name
         cell.filterLabel.text = filterName
         
     
@@ -117,7 +118,7 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // update 'last selected' date
-        FBService.updateFilterInfo (filter: filters[indexPath.row])
+        DataService.updateFilterInfo (filter: filters[indexPath.row])
         
         // set background colour
         self.filterIndex = indexPath.row // set global index for selected filter
@@ -129,10 +130,9 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         // change filter button text
-        if let filterName = filters[indexPath.row].value(forKey: "name") as? String {
-            delegate?.updateFilterInfo(filterName: filterName)
-            UserDefaults.standard.set(filterName, forKey: "savedCurrentFilter")
-        }
+        let filterName = filters[indexPath.row].name
+        delegate?.updateFilterInfo(filterName: filterName)
+        UserDefaults.standard.set(filterName, forKey: "savedCurrentFilter")
         
         // change background color of selected item
         let selectedCell = collectionView.cellForItem(at: indexPath)! as! ChooseFilterCollectionViewCell

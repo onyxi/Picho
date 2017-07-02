@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E268FEF01A273D3ADE82E55 /* Pods_Picho.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9783C45BE39DA1D18FF8AB71 /* Pods_Picho.framework */; };
 		BC31A9B01E1A7C7700EB4F71 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC31A9AF1E1A7C7600EB4F71 /* CustomView.swift */; };
+		BC36D7431F0989FF00FE2D76 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36D7421F0989FF00FE2D76 /* Filter.swift */; };
 		BC9171841EAD498200C85A8D /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9171831EAD498200C85A8D /* Media.swift */; };
 		BCA557651E9D776A00D8B12B /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA557641E9D776A00D8B12B /* UserNotification.swift */; };
 		BCA916131E71EAAB0076396B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA916121E71EAAB0076396B /* AuthService.swift */; };
@@ -18,7 +19,7 @@
 		BCA9161B1E75C0FB0076396B /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA9161A1E75C0FB0076396B /* Album.swift */; };
 		BCA9161D1E75CD440076396B /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA9161C1E75CD440076396B /* CurrentUser.swift */; };
 		BCA9161F1E75D4D80076396B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA9161E1E75D4D80076396B /* User.swift */; };
-		BCC3B0FD1E867185008F1686 /* FBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FC1E867185008F1686 /* FBService.swift */; };
+		BCC3B0FD1E867185008F1686 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC3B0FC1E867185008F1686 /* DataService.swift */; };
 		BCF9D6F91E993DD90087D7D2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9D6F81E993DD90087D7D2 /* Extensions.swift */; };
 		C12886A71D948D6E0040ADBF /* PicCollectionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12886A61D948D6E0040ADBF /* PicCollectionEngine.swift */; };
 		C12886A91D95DB820040ADBF /* FutureAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12886A81D95DB820040ADBF /* FutureAlbumCollectionViewCell.swift */; };
@@ -71,6 +72,7 @@
 		A907B5A058FA7448E60B6D12 /* Pods-Picho.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Picho.release.xcconfig"; path = "Pods/Target Support Files/Pods-Picho/Pods-Picho.release.xcconfig"; sourceTree = "<group>"; };
 		BC31A9AF1E1A7C7600EB4F71 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		BC3486C51E355A3200B9191C /* Picho.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Picho.entitlements; sourceTree = SOURCE_ROOT; };
+		BC36D7421F0989FF00FE2D76 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		BC9171831EAD498200C85A8D /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		BCA557641E9D776A00D8B12B /* UserNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		BCA916121E71EAAB0076396B /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -80,7 +82,7 @@
 		BCA9161A1E75C0FB0076396B /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		BCA9161C1E75CD440076396B /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		BCA9161E1E75D4D80076396B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		BCC3B0FC1E867185008F1686 /* FBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBService.swift; sourceTree = "<group>"; };
+		BCC3B0FC1E867185008F1686 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		BCF9D6F81E993DD90087D7D2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C12886A61D948D6E0040ADBF /* PicCollectionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicCollectionEngine.swift; sourceTree = "<group>"; };
 		C12886A81D95DB820040ADBF /* FutureAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -172,7 +174,7 @@
 			children = (
 				BCA916121E71EAAB0076396B /* AuthService.swift */,
 				BCA916141E7463F20076396B /* DevData.swift */,
-				BCC3B0FC1E867185008F1686 /* FBService.swift */,
+				BCC3B0FC1E867185008F1686 /* DataService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -270,6 +272,7 @@
 				BCA9161E1E75D4D80076396B /* User.swift */,
 				BCA9161C1E75CD440076396B /* CurrentUser.swift */,
 				BCA557641E9D776A00D8B12B /* UserNotification.swift */,
+				BC36D7421F0989FF00FE2D76 /* Filter.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				BCA916171E75A3B30076396B /* Constants.swift in Sources */,
 				C14B33031D744FE000A7FBC0 /* CustomTextField.swift in Sources */,
 				BCA916151E7463F20076396B /* DevData.swift in Sources */,
+				BC36D7431F0989FF00FE2D76 /* Filter.swift in Sources */,
 				BC9171841EAD498200C85A8D /* Media.swift in Sources */,
 				C139AA8B1D7387A9005CB5CF /* LoginVC.swift in Sources */,
 				C178C0581DA05FD60010639F /* ChooseFilterVC.swift in Sources */,
@@ -467,7 +471,7 @@
 				C139AA891D7387A9005CB5CF /* AppDelegate.swift in Sources */,
 				C18935211DB37D6200301A7A /* DatePickerPopoverVC.swift in Sources */,
 				C178C0501DA00B610010639F /* TabBarVC.swift in Sources */,
-				BCC3B0FD1E867185008F1686 /* FBService.swift in Sources */,
+				BCC3B0FD1E867185008F1686 /* DataService.swift in Sources */,
 				C14B33091D745DF000A7FBC0 /* CustomButton.swift in Sources */,
 				C178C05A1DA123C30010639F /* ChooseAlbumTableViewCell.swift in Sources */,
 				C178C04B1D9F07F40010639F /* CustomTextView.swift in Sources */,

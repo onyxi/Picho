@@ -117,7 +117,7 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
          if let email = emailField.text, let password = passwordField.text, (email.characters.count > 0 && password.characters.count > 0) {
             
             // call the sign-in service
-            let fbService = FBService()
+            let fbService = DataService()
             fbService.authenticateDelegate = self
             fbService.signIn(email: email, password: password, onComplete: { (errMsg, data) in
                 guard errMsg == nil else {
@@ -155,7 +155,7 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
         if let email = emailField.text, let password = passwordField.text, (email.characters.count > 0 && password.characters.count > 0) {
             
             // call the sign-up service
-            let fbService = FBService()
+            let fbService = DataService()
             fbService.authenticateDelegate = self
             fbService.signUp(email: email, password: password, onComplete: { (errMsg, data) in
                 guard errMsg == nil else {

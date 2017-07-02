@@ -269,9 +269,9 @@ class PicsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 //            isLoaded: true
 //        )
         
-        let fbService = FBService()
+        let fbService = DataService()
         fbService.fetchAlbumsDelegate = self
-        fbService.fetchAlbumData(user: currentUser!)
+        fbService.fetchFirebaseAlbums(user: currentUser!)
         
 //        guard let userLoaded = LoggedInUser.isLoaded else { return }
 //        if userLoaded {
