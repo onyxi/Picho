@@ -15,12 +15,16 @@ class CurrentUser: User {
    
     // intialise CurrentUser object
     init() {
-        self.password = UserDefaults.standard.value(forKey: Constants.USER_PASSWORD) as! String
+        let constants = Constants()
+        
+        print(UserDefaults.standard.value(forKey: constants.USER_PASSWORD) as! String)
+        self.password = UserDefaults.standard.value(forKey: constants.USER_PASSWORD) as! String
+
         super.init(
-            userID: UserDefaults.standard.value(forKey: Constants.USER_ID) as! String,
-            username: UserDefaults.standard.value(forKey: Constants.USER_USERNAME) as! String,
-            email: UserDefaults.standard.value(forKey: Constants.USER_EMAIL) as! String,
-            profilePicURL: UserDefaults.standard.value(forKey: Constants.USER_PROFILEPICURL) as! String
+            userID: UserDefaults.standard.value(forKey: constants.USER_ID) as! String,
+            username: UserDefaults.standard.value(forKey: constants.USER_USERNAME) as! String,
+            email: UserDefaults.standard.value(forKey: constants.USER_EMAIL) as! String,
+            profilePicURL: UserDefaults.standard.value(forKey: constants.USER_PROFILEPICURL) as! String
         )
     }
 

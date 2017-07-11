@@ -164,7 +164,13 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
                     self.present(alert, animated: true, completion: nil)
                     return
                 }
-                self.dismiss(animated: true, completion: nil)
+                
+                // [START load default data to firebase database/storage bucket]
+                
+                    // once upload complete:
+                    self.dismiss(animated: true, completion: nil)
+                // [END load default data to firebase database/storage bucket]
+                
               //self.logInDelegate?.didLogIn()
             })
             

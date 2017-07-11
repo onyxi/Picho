@@ -57,6 +57,7 @@ class NotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIP
     }
 
     
+    
 //   -------Methods---------------------------
     
     /// show ProfileVC popover view controller

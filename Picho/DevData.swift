@@ -11,20 +11,21 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
-
+// Package and upload example data (albums, images, notifications) for new user - to Firebase and Core Data:
 class DevData {
     private static let _instance = DevData()
     static var instance: DevData {
         return _instance
     }
     
+    let constants = Constants()
     
-    // establish album owner
-    var ownerID: String?
-    var ownerUsername: String?
-    var ownerEmail: String?
-    var ownerProfilePic: UIImage?
-    var ownerProfilePicURL: String?
+    // establish owner
+    //    var ownerID: String?
+    //    var ownerUsername: String?
+    //    var ownerEmail: String?
+    //    var ownerProfilePic: UIImage?
+    //    var ownerProfilePicURL: String?
     
     
     // get Firebase root references
@@ -35,8 +36,6 @@ class DevData {
     var mainStorageRef: FIRStorageReference {
         return FIRStorage.storage().reference(forURL: "gs://picho-51f78.appspot.com")
     }
-
-    
     
     
     
@@ -44,46 +43,11 @@ class DevData {
     func saveDevData() {
         print ("saving dev data")
         
-//        let currentUser = CurrentUser()
-//        
-//        // save user to core data
-//        let devUserID = "K1SmGyQGVLcxDvHWtKYBOmAqF6T2"
-//        let email = "pete@picho.com"
-//        let username = "pete@picho.com"
-//        let password = "password"
-//        let profileImage = UIImage(named: "PHProfileImage")
-//        let profileImageURL = "https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144"
-//        CoreDataModel.saveCurrentUser(userID: devUserID, username: username, email: email, password: password, profileImage: profileImage!)
-//        
-//        currentUser.userID = devUserID
-//        currentUser.username = username
-//        currentUser.email = email
-//        currentUser.profilePicURL = profileImageURL
-//        
-//        ownerID = currentUser.userID
-//        ownerUsername = currentUser.username
-//        ownerEmail = currentUser.email
-//        ownerProfilePicURL = profileImageURL
-        
-        
-        // save albums
-      //  let owner = User(userID: ownerID!, username: ownerUsername!, email: ownerEmail!, profilePicURL: ownerProfilePicURL!)
-        
-        
-        
-        
-        
-        
-        
-        
-//        UserDefaults.standard.set("K1SmGyQGVLcxDvHWtKYBOmAqF6T2", forKey: "currentUserID")
-//        UserDefaults.standard.set("pete@picho.com", forKey: "currentUsername")
-//        UserDefaults.standard.set("pete@picho.com", forKey: "currentEmail")
-//        UserDefaults.standard.set("https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144", forKey: "currentProfilePicURL")
-//        UserDefaults.standard.set("password", forKey: "currentPassword")
-        
         let owner = CurrentUser()
         
+        // [START create example Album objects to save]
+        
+        // Create tuple to hold example album data
         let albums: [(title: String, description: String, created: String, available: String, remaining: Int, taken: Int, isActive: Bool)] = [
             
             // past albums
@@ -245,19 +209,66 @@ class DevData {
              taken: 2,
              isActive: true)
         ]
-                
         
-        
+        // package Album objects to be saved
         var albumIndex = 0
-        
         for album in albums {
             
-            let albumCode = self.getAlbumCode(albumNumber: albumIndex)
+            var albumCode = ""
+            
+            switch albumIndex {
+            case 0:
+                albumCode = "christmas"
+            case 1:
+                albumCode = "vegas"
+            case 2:
+                albumCode = "summer"
+            case 3:
+                albumCode = "friends"
+            case 4:
+                albumCode = "rockies"
+            case 5:
+                albumCode = "food"
+            case 6:
+                albumCode = "honeymoon"
+            case 7:
+                albumCode = "weekend"
+            case 8:
+                albumCode = "country"
+            case 9:
+                albumCode = "olympics"
+            case 10:
+                albumCode = "india"
+            case 11:
+                albumCode = "family"
+            case 12:
+                albumCode = "birthday"
+            case 13:
+                albumCode = "safari"
+            case 14:
+                albumCode = "NY"
+            case 15:
+                albumCode = "NZ"
+            case 16:
+                albumCode = "indo"
+                
+            case 17:
+                albumCode = "wedding"
+            case 18:
+                albumCode = "festival"
+            case 19:
+                albumCode = "travels"
+            case 20:
+                albumCode = "boys"
+            case 21:
+                albumCode = "martha"
+            default:
+                break
+            }
+            
+            
             
             guard let cover = UIImage(named: "\(albumCode)Cover") else { return }
-            
-            //let albumToCreate = album
-            // DataService.instance.createNewAlbum(album: albumToCreate, albumCover: cover)
             
             guard let coverData = UIImagePNGRepresentation(cover) else { return }
             
@@ -268,26 +279,32 @@ class DevData {
             
             let album = Album(
                 albumID: albumID,
-                ownerID: ownerID!,
+                ownerID: owner.userID,
                 title: album.title,
                 description: album.description,
                 createdDate: createdDate,
                 availableDate: availableDate,
                 contributors: [Contributor(
-                    userID: ownerID!,
-                    username: ownerUsername!,
+                    userID: owner.userID,
+                    username: owner.username,
                     photosRemaining: album.remaining,
                     photosTaken: album.taken)
-                    ],
+                ],
                 coverURL: nil,
                 coverImage: cover,
-                //mediaCount: album.taken,
                 isActive: album.isActive
             )
             
-            // if album isActive save to core data
+            // [END create example Album objects to save]
+            
+            // **
+            
+            // [START save active albums to Core Data]
+            
+            // if album is active save to Core Data
             if album.isActive == true {
                 
+                // package and save Album objects to Core Data
                 guard  let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
                 let managedContext = appDelegate.managedObjectContext
                 let entity = NSEntityDescription.entity(forEntityName: "ActiveAlbum", in: managedContext)
@@ -306,6 +323,7 @@ class DevData {
                 
                 do { try managedContext.save() } catch {}
                 
+                // package and save Contributor objects to Core Data
                 var photosTakenCount = 0
                 for contributor in album.contributors {
                     let managedContext = appDelegate.managedObjectContext
@@ -323,11 +341,11 @@ class DevData {
                     
                 }
                 
-                // save images to Core Data
+                // package and save Media objects to Core Data
                 for media in 1 ... photosTakenCount {
                     let mediaID = NSUUID().uuidString
                     let media = UIImage(named: "\(albumCode)\(media)")
-            
+                    
                     let managedContext = appDelegate.managedObjectContext
                     let entity = NSEntityDescription.entity(forEntityName: "Media", in: managedContext)
                     let objectToSave = NSManagedObject(entity: entity!, insertInto: managedContext)
@@ -339,76 +357,80 @@ class DevData {
                     do { try managedContext.save() } catch {}
                 }
                 
-                
-
+            }
             
-            } else {
-                
-                let coverRef = self.mainStorageRef.child("albumCovers").child(album.ownerID).child(albumID)
-                coverRef.put(coverData, metadata: nil, completion: { (metadata: FIRStorageMetadata?, error: Error?) in
-                    if error != nil {
-                        print (error?.localizedDescription)
-                        return
-                    }
-                    if let coverDownloadURL = metadata?.downloadURL()?.absoluteString {
-                        
-                        let albumData = [
-                            "coverURL" : coverDownloadURL as AnyObject,
-                            //    "coverID" : albumID as AnyObject,
-                            "title" : album.title as AnyObject,
-                            "description" : album.description as AnyObject,
-                            "createdDate" : FIRServerValue.timestamp() as AnyObject,
-                            "availableDate" : (album.availableDate.timeIntervalSince1970 * 1000).rounded() as AnyObject,
-                            //"mediaCount" : album.mediaCount as AnyObject,
-                            "isActive" : album.isActive as AnyObject
+            // [END save active albums to Core Data]
+            
+            // **
+            
+            // [START upload all example albums to Firebase]
+            
+            // upload cover image and get download url
+            let coverRef = self.mainStorageRef.child("albumCovers").child(album.ownerID).child(albumID)
+            coverRef.put(coverData, metadata: nil, completion: { (metadata: FIRStorageMetadata?, error: Error?) in
+                if error != nil {
+                    print (error?.localizedDescription as Any)
+                    return
+                }
+                if let coverDownloadURL = metadata?.downloadURL()?.absoluteString {
+                    
+                    // package album object as JSON object for Firebase
+                    let albumData = [
+                        "coverURL" : coverDownloadURL as AnyObject,
+                        "title" : album.title as AnyObject,
+                        "description" : album.description as AnyObject,
+                        "createdDate" : FIRServerValue.timestamp() as AnyObject,
+                        "availableDate" : (album.availableDate.timeIntervalSince1970 * 1000).rounded() as AnyObject,
+                        "isActive" : album.isActive as AnyObject
+                    ]
+                    
+                    // save album as Firebase album node
+                    let albumRef = self.mainDBRef.child(self.constants.FIR_USERALBUMS).child("\(album.ownerID)").child(albumID)
+                    albumRef.updateChildValues(albumData, withCompletionBlock: { (error, ref) in
+                        if error != nil {
+                            print (error?.localizedDescription as Any)
+                        } else {
+                            print ("new album added")
+                        }
+                    })
+                    
+                    // re-package contributors list as JSON object for Firebase
+                    var contributorsList: Dictionary<String, AnyObject> = [:]
+                    var mediaCount = 0
+                    for contributor in album.contributors {
+                        let contributorData: Dictionary<String, AnyObject> = [
+                            "username": contributor.username as AnyObject,
+                            "photosRemaining": contributor.photosRemaining as AnyObject,
+                            "photosTaken": contributor.photosTaken as AnyObject
                         ]
                         
-                        let albumRef = self.mainDBRef.child(Constants.FIR_USERALBUMS).child("\(album.ownerID)").child(albumID)
-                        albumRef.updateChildValues(albumData, withCompletionBlock: { (error, ref) in
-                            if error != nil {
-                                print (error?.localizedDescription)
-                            } else {
-                                print ("new album added")
-                                
-                                // save album to Core Data
-                                if album.isActive {
-                                    
-                                }
-                                
-                            }
-                        })
+                        let contributorID = contributor.userID
+                        contributorsList["\(contributorID)"] = contributorData as AnyObject?
                         
-                        // extract contributors list
-                        var contributorsList: Dictionary<String, AnyObject> = [:]
-                        var mediaCount = 0
-                        for contributor in album.contributors {
-                            let contributorData: Dictionary<String, AnyObject> = [
-                                "username": contributor.username as AnyObject,
-                                "photosRemaining": contributor.photosRemaining as AnyObject,
-                                "photosTaken": contributor.photosTaken as AnyObject
-                            ]
+                        mediaCount += contributor.photosTaken
+                        
+                    }
+                    
+                    // save album contributors as Firebase album node
+                    let contributorsRef = albumRef.child("contributors")
+                    contributorsRef.updateChildValues(contributorsList, withCompletionBlock: { (error: Error?, ref) in
+                        if error != nil {
+                            print (error?.localizedDescription as Any)
+                        } else {
                             
-                            let contributorID = contributor.userID
-                            contributorsList["\(contributorID)"] = contributorData as AnyObject?
-                            
-                            mediaCount += contributor.photosTaken
+                            self.uploadImagesToFirebase(owner: owner, albumID: albumID, albumCode: albumCode, mediaCount: mediaCount)
                             
                         }
-                        
-                        let contributorsRef = albumRef.child("contributors")
-                        contributorsRef.updateChildValues(contributorsList, withCompletionBlock: { (error: Error?, ref) in
-                            if error != nil {
-                                print (error?.localizedDescription)
-                            } else {
-                                
-                                
-                                
-                                self.uploadImagesToFirebase(owner: owner, albumID: albumID, albumCode: albumCode, mediaCount: mediaCount)
-                                
-                            }
-                        })
-                        
-                        // create notification in firebase
+                    })
+                    
+                    // [END upload all example albums to Firebase]
+                    
+                    // *
+                    
+                    // [START create example notifications]
+                    
+                    // if album is not active create a notification in firebase - to say the album is now available to view
+                    if !album.isActive {
                         let notifData = [
                             "albumID": albumID as AnyObject,
                             "createdDate": FIRServerValue.timestamp() as AnyObject,
@@ -425,16 +447,10 @@ class DevData {
                                 print ("notification uploaded")
                             }
                         })
-                        
-                        
-                        
                     }
-                    
-                
-                    
-                })
-            }
-            
+                    // [END create example notifications]
+                }
+            })
             
             albumIndex += 1
         }
@@ -447,23 +463,22 @@ class DevData {
     func uploadImagesToFirebase(owner: User, albumID: String, albumCode: String, mediaCount: Int) {
         print("Uploading images to Firebase")
         
-        let ownerRef = "\(owner.userID)"
+        let ownerRef = owner.userID
         
         for mediaNumber in 1...mediaCount {
             
             guard let media = UIImage(named: "\(albumCode)\(mediaNumber)") else { return }
             guard let mediaDataObject = UIImagePNGRepresentation(media) else { return }
             
-            let mediaID = "\(NSUUID().uuidString)"
-            let mediaObjectRef = mainStorageRef.child("albumMedia").child(albumID).child(mediaID)
+            let mediaID = NSUUID().uuidString
+            let mediaObjectRef = mainStorageRef.child(self.constants.FIR_ALBUMMEDIA).child(albumID).child(mediaID)
             
             mediaObjectRef.put(mediaDataObject, metadata: nil, completion: { (metadata, error) in
                 if error != nil {
-                    print (error?.localizedDescription)
+                    print (error?.localizedDescription as Any)
                 } else {
-                    print (metadata)
                     if let downloadURL = metadata?.downloadURL()?.absoluteString {
-                        let mediaDataRef = self.mainDBRef.child(Constants.FIR_ALBUMMEDIA).child(albumID).child(mediaID)
+                        let mediaDataRef = self.mainDBRef.child(self.constants.FIR_ALBUMMEDIA).child(albumID).child(mediaID)
                         let mediaData = [
                             "createdDate" : FIRServerValue.timestamp() as AnyObject,
                             "mediaURL" : downloadURL as AnyObject,
@@ -473,7 +488,7 @@ class DevData {
                         
                         mediaDataRef.updateChildValues(mediaData, withCompletionBlock: { (error, ref) in
                             if error != nil {
-                                print (error?.localizedDescription)
+                                print (error?.localizedDescription as Any)
                             } else {
                                 print ("media uploaded")
                             }
@@ -488,75 +503,17 @@ class DevData {
     }
     // [END uploading images]
     
-    
-
-    
-    
-    
     // [END upload all data]
     
+    // **
     
-    
-    
-    // Get prefixes for filenames
-    func getAlbumCode(albumNumber: Int) -> String {
-        
-        var albumCode: String!
-        
-        switch albumNumber {
-        case 0:
-            albumCode = "christmas"
-        case 1:
-            albumCode = "vegas"
-        case 2:
-            albumCode = "summer"
-        case 3:
-            albumCode = "friends"
-        case 4:
-            albumCode = "rockies"
-        case 5:
-            albumCode = "food"
-        case 6:
-            albumCode = "honeymoon"
-        case 7:
-            albumCode = "weekend"
-        case 8:
-            albumCode = "country"
-        case 9:
-            albumCode = "olympics"
-        case 10:
-            albumCode = "india"
-        case 11:
-            albumCode = "family"
-        case 12:
-            albumCode = "birthday"
-        case 13:
-            albumCode = "safari"
-        case 14:
-            albumCode = "NY"
-        case 15:
-            albumCode = "NZ"
-        case 16:
-            albumCode = "indo"
-            
-        case 17:
-            albumCode = "wedding"
-        case 18:
-            albumCode = "festival"
-        case 19:
-            albumCode = "travels"
-        case 20:
-            albumCode = "boys"
-        case 21:
-            albumCode = "martha"
-        default:
-            break
-        }
-        
-        return albumCode
+    // Manual override of 'CurrentUser' data for use in development :
+    func setCurrentUserData() {
+        UserDefaults.standard.set("doFNiHlxHlZw7RS3Yajl4bqREjg2", forKey: constants.USER_ID)
+        UserDefaults.standard.set("jim@picho.com", forKey: constants.USER_USERNAME)
+        UserDefaults.standard.set("jim@picho.com", forKey: constants.USER_EMAIL)
+        UserDefaults.standard.set("password", forKey: constants.USER_PASSWORD)
+        UserDefaults.standard.set("https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144", forKey: constants.USER_PROFILEPICURL)
     }
-
-
-
-
+    
 }

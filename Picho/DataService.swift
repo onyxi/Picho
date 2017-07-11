@@ -25,6 +25,8 @@ typealias Completion = (_ errMsg: String?, _ data: AnyObject?) -> Void
 
 class DataService {
     
+    let constants = Constants()
+    
     // declare protocol delegate variables
     var authenticateDelegate: AuthenticateDelegate?
     var fetchAlbumsDelegate: FetchAlbumsDelegate?
@@ -59,7 +61,7 @@ class DataService {
                     
                     // create record of user in FB database
                     let profile: Dictionary<String, AnyObject> = ["email": email as AnyObject, "password" : password as AnyObject, "username": email as AnyObject, "profilePicURL" : "placeholder" as AnyObject]
-                    self.mainDBRef.child(Constants.FIR_USERS).child((user?.uid)!).child(Constants.FIR_PROFILE).setValue(profile)
+                    self.mainDBRef.child(self.constants.FIR_USERS).child((user?.uid)!).child(self.constants.FIR_PROFILE).setValue(profile)
                     
                     // log in to FB account with credentials
                     FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
@@ -71,19 +73,27 @@ class DataService {
                         }
                         
                         // store user's data on disk and in memory
-                        UserDefaults.standard.set(user?.uid, forKey: Constants.USER_ID)
-                        UserDefaults.standard.set(email, forKey: Constants.USER_USERNAME)
-                        UserDefaults.standard.set(email, forKey: Constants.USER_EMAIL)
-                        UserDefaults.standard.set(password, forKey: Constants.USER_PASSWORD)
-                        UserDefaults.standard.set("placeholder", forKey: Constants.USER_PROFILEPICURL)
-                        UserDefaults.standard.set(true, forKey: Constants.USER_ISLOADED)
+                        UserDefaults.standard.set(user?.uid, forKey: self.constants.USER_ID)
+                        UserDefaults.standard.set(email, forKey: self.constants.USER_USERNAME)
+                        UserDefaults.standard.set(email, forKey: self.constants.USER_EMAIL)
+                        UserDefaults.standard.set(password, forKey: self.constants.USER_PASSWORD)
+                        UserDefaults.standard.set("placeholder", forKey: self.constants.USER_PROFILEPICURL)
+                        UserDefaults.standard.set(true, forKey: self.constants.USER_ISLOADED)
 
                         
-                        // we have successfully logged in - return user data to caller
-                        onComplete?(nil, user)
+                        // [START load default data to firebase database/storage bucket]
+                        // DevData.instance.saveDevData()
+                        
+                        // implement showing of 'loading, please wait' message
+                        
+                            // once complete:
+                            // we have successfully logged in - return user data to caller
+                            onComplete?(nil, user)
+                        
+                        // [END load default data to firebase database/storage bucket]
                         
                         // call back to fetch user data
-                        self.authenticateDelegate?.didAuthenticate()
+                        self.authenticateDelegate?.didAuthenticate() // is this necessary?
                         
                     })
                 }
@@ -110,33 +120,36 @@ class DataService {
                 let userID = user?.uid
                 
                 // fetch user's data from Database
-                let userRef = self.mainDBRef.child(Constants.FIR_USERS).child(userID!)
-                userRef.observeSingleEvent(of: FIRDataEventType.value) { (snapshot: FIRDataSnapshot) in
+                let userRef = self.mainDBRef.child(self.constants.FIR_USERS).child(userID!)
+             //   userRef.observeSingleEvent(of: FIRDataEventType.value) { (snapshot: FIRDataSnapshot) in
+                userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     // unpack user's data
                     if let userData = snapshot.value as? [String : AnyObject] {
-                        for user in userData {
-                            let email = user.value["email"] as! String
-                            let password = user.value["password"] as! String
-                            let username = user.value["username"] as! String
-                            let profilePicURL = user.value["profilePicURL"] as! String
+                        for loggedInUser in userData {
+                            let email = loggedInUser.value["email"] as! String
+                            let password = loggedInUser.value["password"] as! String
+                            print (password)
+                            let username = loggedInUser.value["username"] as! String
+                            let profilePicURL = loggedInUser.value["profilePicURL"] as! String
                             
                             // store user's data in memory
-                            UserDefaults.standard.set(userID, forKey: Constants.USER_ID)
-                            UserDefaults.standard.set(username, forKey: Constants.USER_USERNAME)
-                            UserDefaults.standard.set(email, forKey: Constants.USER_EMAIL)
-                            UserDefaults.standard.set(password, forKey: Constants.USER_PASSWORD)
-                            UserDefaults.standard.set(profilePicURL, forKey: Constants.USER_PROFILEPICURL)
-                            UserDefaults.standard.set(true, forKey: Constants.USER_ISLOADED)
+                            UserDefaults.standard.set(userID, forKey: self.constants.USER_ID)
+                            UserDefaults.standard.set(username, forKey: self.constants.USER_USERNAME)
+                            UserDefaults.standard.set(email, forKey: self.constants.USER_EMAIL)
+                            UserDefaults.standard.set(password, forKey: self.constants.USER_PASSWORD)
+                            UserDefaults.standard.set(profilePicURL, forKey: self.constants.USER_PROFILEPICURL)
+                            UserDefaults.standard.set(true, forKey: self.constants.USER_ISLOADED)
                             
                             // call back to fetch user data
                             self.authenticateDelegate?.didAuthenticate()
+                            
+                            // we have successfully logged in - return user data to caller
+                            onComplete?(nil, user)
+                            
                         }
                     }
-                }
-                
-                // we have successfully logged in - return user data to caller
-                onComplete?(nil, user)
+                })
             }
         })
     }
@@ -177,12 +190,12 @@ class DataService {
     // [START sign out user from firebase]
     func signOutLocal() {
             
-            UserDefaults.standard.set(nil, forKey: Constants.USER_ID)
-            UserDefaults.standard.set(nil, forKey: Constants.USER_EMAIL)
-            UserDefaults.standard.set(nil, forKey: Constants.USER_USERNAME)
-            UserDefaults.standard.set(nil, forKey: Constants.USER_PASSWORD)
-            UserDefaults.standard.set(nil, forKey: Constants.USER_PROFILEPICURL)
-            UserDefaults.standard.set(false, forKey: Constants.USER_ISLOADED)
+            UserDefaults.standard.set(nil, forKey: constants.USER_ID)
+            UserDefaults.standard.set(nil, forKey: constants.USER_EMAIL)
+            UserDefaults.standard.set(nil, forKey: constants.USER_USERNAME)
+            UserDefaults.standard.set(nil, forKey: constants.USER_PASSWORD)
+            UserDefaults.standard.set(nil, forKey: constants.USER_PROFILEPICURL)
+            UserDefaults.standard.set(false, forKey: constants.USER_ISLOADED)
 
     }
     // [START sign out user from firebase]
@@ -272,7 +285,7 @@ class DataService {
                 ]
                 
                 // upload album data to Firebase database
-                let albumRef = self.mainDBRef.child(Constants.FIR_USERALBUMS).child(album.ownerID).child(albumID)
+                let albumRef = self.mainDBRef.child(self.constants.FIR_USERALBUMS).child(album.ownerID).child(albumID)
                 albumRef.updateChildValues(albumData, withCompletionBlock: { (error, ref) in
                     if error != nil {
                         print (error?.localizedDescription)
@@ -311,7 +324,7 @@ class DataService {
         var unpackedActiveAlbums = [Album]()
         
         // retrieve album data from Firebase
-        let queryRef = mainDBRef.child(Constants.FIR_USERALBUMS).child(user.userID).queryOrdered(byChild: "title")
+        let queryRef = mainDBRef.child(constants.FIR_USERALBUMS).child(user.userID).queryOrdered(byChild: "title")
         queryRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
             // unpack album JSON data from Firebase
@@ -424,7 +437,7 @@ class DataService {
     func deleteAlbum(album: Album) {
         
         // delete album data from Firebase database
-        let albumRef = mainDBRef.child(Constants.FIR_USERALBUMS).child(album.ownerID).child(album.albumID)
+        let albumRef = mainDBRef.child(constants.FIR_USERALBUMS).child(album.ownerID).child(album.albumID)
         albumRef.removeValue { (error, ref) in
             if let error = error {
                 print ("could not delete album data:\(error.localizedDescription)")
@@ -434,7 +447,7 @@ class DataService {
         }
         
         // delete cover image from Firebase storage bucket
-        let albumCoverRef = self.mainStorageRef.child(Constants.FIR_ALBUMCOVERS).child(album.ownerID).child(album.albumID)
+        let albumCoverRef = self.mainStorageRef.child(constants.FIR_ALBUMCOVERS).child(album.ownerID).child(album.albumID)
         albumCoverRef.delete { (error) in
             if let error = error {
                 print ("could not delete album cover: \(error.localizedDescription)")
@@ -444,7 +457,7 @@ class DataService {
         }
         
         // delete album media items from Firebase database
-        let albumMediaDataRef = self.mainDBRef.child(Constants.FIR_ALBUMMEDIA).child(album.albumID)
+        let albumMediaDataRef = self.mainDBRef.child(constants.FIR_ALBUMMEDIA).child(album.albumID)
         albumMediaDataRef.removeValue { (error, ref) in
             if let error = error {
                 print ("could not delete album media data: \(error.localizedDescription)")
@@ -454,7 +467,7 @@ class DataService {
         }
         
         // delete album media items from Firebase storage bucket
-        let albumMediaRef = self.mainStorageRef.child(Constants.FIR_ALBUMMEDIA).child(album.ownerID).child(album.albumID)
+        let albumMediaRef = self.mainStorageRef.child(constants.FIR_ALBUMMEDIA).child(album.ownerID).child(album.albumID)
         albumMediaRef.delete { (error) in
             if let error = error {
                 print ("could not delete album media: \(error.localizedDescription)")
@@ -482,7 +495,7 @@ class DataService {
         
         // upload media item to Firebase storage bucket and get 'download url'
         guard let mediaData = UIImagePNGRepresentation(media) else { return }
-        let mediaStorageRef = self.mainStorageRef.child(Constants.FIR_ALBUMMEDIA).child(album.albumID).child(mediaID)
+        let mediaStorageRef = self.mainStorageRef.child(constants.FIR_ALBUMMEDIA).child(album.albumID).child(mediaID)
         mediaStorageRef.put(mediaData, metadata: nil) { (metadata, error) in
             
             if let error = error { // upload error occurred - provide feedback
@@ -499,7 +512,7 @@ class DataService {
                 ]
                 
                 // upload media item data to Firebase database
-                let mediaDatabaseRef = self.mainDBRef.child(Constants.FIR_ALBUMMEDIA).child(album.albumID).child(mediaID)
+                let mediaDatabaseRef = self.mainDBRef.child(self.constants.FIR_ALBUMMEDIA).child(album.albumID).child(mediaID)
                 mediaDatabaseRef.updateChildValues(mediaData, withCompletionBlock: { (error, ref) in
                     if let error = error { // upload error occurred - provide feedback
                         print (error.localizedDescription)
@@ -595,7 +608,7 @@ class DataService {
                         let ownerID = mediaItem.childSnapshot(forPath: "ownerID").value as? String
                     
                         // fetch media owner data from Firebase
-                        let userRef = self.mainDBRef.child(Constants.FIR_USERS).child(ownerID!).child(Constants.FIR_PROFILE)
+                        let userRef = self.mainDBRef.child(self.constants.FIR_USERS).child(ownerID!).child(self.constants.FIR_PROFILE)
                         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                             
                             // unpack owner JSON data from Firebase
@@ -623,7 +636,7 @@ class DataService {
     
     // [START delete media]
     func deleteMedia(mediaURL: String) {
-        let mediaStorageRef = mainStorageRef.child(Constants.FIR_ALBUMMEDIA).child(mediaURL)
+        let mediaStorageRef = mainStorageRef.child(constants.FIR_ALBUMMEDIA).child(mediaURL)
         // implement delete image here...
     }
     // [END delete image]
@@ -641,7 +654,7 @@ class DataService {
         let currentUser = CurrentUser()
         
         // retrieve notification data from Firebase
-        let notifsRef = mainDBRef.child(Constants.FIR_USERNOTIFICATIONS).child(currentUser.userID)
+        let notifsRef = mainDBRef.child(constants.FIR_USERNOTIFICATIONS).child(currentUser.userID)
         notifsRef.observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
             
             notifsCount = Int(snapshot.childrenCount) // update notifMax with number of items returned in the snapshot
@@ -658,7 +671,7 @@ class DataService {
                     let notifCreatedDate = Date(timeIntervalSince1970: TimeInterval(storedCreatedDate))
                     
                     // retrieve object's associated info //
-                    let objectOwnerRef = self.mainDBRef.child(Constants.FIR_USERS).child(notifObjectOwnerID).child(Constants.FIR_PROFILE)
+                    let objectOwnerRef = self.mainDBRef.child(self.constants.FIR_USERS).child(notifObjectOwnerID).child(self.constants.FIR_PROFILE)
                     objectOwnerRef.observeSingleEvent(of: .value, with: { (snapshot) in
                         
                         // get object owner's username
@@ -670,7 +683,7 @@ class DataService {
                         // fetch object metadata from Firebase
                         switch notifObjectType {
                         case "album" :
-                            let objectRef = self.mainDBRef.child(Constants.FIR_USERALBUMS).child(notifObjectOwnerID).child(notifAlbumID!)
+                            let objectRef = self.mainDBRef.child(self.constants.FIR_USERALBUMS).child(notifObjectOwnerID).child(notifAlbumID!)
                             objectRef.observe(.value, with: { (snapshot) in
                        
                                 // unpack JSON data

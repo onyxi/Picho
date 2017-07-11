@@ -167,13 +167,13 @@
 			name = "Custom Cells";
 			sourceTree = "<group>";
 		};
-		BCA916111E71EA7C0076396B /* Services */ = {
+		BCA916111E71EA7C0076396B /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				BCA916141E7463F20076396B /* DevData.swift */,
 				BCC3B0FC1E867185008F1686 /* DataService.swift */,
 			);
-			name = Services;
+			name = Data;
 			sourceTree = "<group>";
 		};
 		C139AA7C1D7387A9005CB5CF = {
@@ -199,7 +199,7 @@
 			children = (
 				BC3486C51E355A3200B9191C /* Picho.entitlements */,
 				C1B7FF6A1D8B3AE9006D72F8 /* Model */,
-				C1F8089A1D74803B00DDE35B /* Util */,
+				C1F8089A1D74803B00DDE35B /* Utilities */,
 				C14B330B1D745E0000A7FBC0 /* Controller */,
 				C14B330A1D745DF900A7FBC0 /* View */,
 				C14B33041D7456AE00A7FBC0 /* Resources */,
@@ -274,16 +274,16 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		C1F8089A1D74803B00DDE35B /* Util */ = {
+		C1F8089A1D74803B00DDE35B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				BCA916111E71EA7C0076396B /* Services */,
+				BCA916111E71EA7C0076396B /* Data */,
 				C1F8089B1D74805600DDE35B /* AnimationEngine.swift */,
 				C12886A61D948D6E0040ADBF /* PicCollectionEngine.swift */,
 				BCA916161E75A3B30076396B /* Constants.swift */,
 				BCF9D6F81E993DD90087D7D2 /* Extensions.swift */,
 			);
-			name = Util;
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		EB1642989147AF1EABC4D5C5 /* Frameworks */ = {

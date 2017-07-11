@@ -124,15 +124,19 @@ class PicsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     override func viewWillAppear(_ animated: Bool) {
         if FIRAuth.auth()?.currentUser == nil {
             clearAlbumData()
+            
         }
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.checkUserAuth()
+        })
         
-        DispatchQueue.main.async {
-           self.checkUserAuth()
-        }
+       // DispatchQueue.main.async {
+        
+     //   }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // do 
+     //   self.checkUserAuth()
     }
     
     
@@ -236,7 +240,9 @@ class PicsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         if FIRAuth.auth()?.currentUser == nil {
             let loginVC = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             loginVC.logInDelegate = self
-            present(loginVC, animated: true, completion: nil)
+          //  DispatchQueue.main.async {
+                self.present(loginVC, animated: true, completion: nil)
+          //  }
            //performSegue(withIdentifier: "LoginVC", sender: nil)
             return
         } else {
