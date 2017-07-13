@@ -17,14 +17,13 @@ class CurrentUser: User {
     init() {
         let constants = Constants()
         
-        print(UserDefaults.standard.value(forKey: constants.USER_PASSWORD) as! String)
-        self.password = UserDefaults.standard.value(forKey: constants.USER_PASSWORD) as! String
+        self.password = UserDefaults.standard.value(forKey: constants.CURRENTUSER_PASSWORD) as! String
 
         super.init(
-            userID: UserDefaults.standard.value(forKey: constants.USER_ID) as! String,
-            username: UserDefaults.standard.value(forKey: constants.USER_USERNAME) as! String,
-            email: UserDefaults.standard.value(forKey: constants.USER_EMAIL) as! String,
-            profilePicURL: UserDefaults.standard.value(forKey: constants.USER_PROFILEPICURL) as! String
+            userID: UserDefaults.standard.value(forKey: constants.CURRENTUSER_ID) as! String,
+            username: UserDefaults.standard.value(forKey: constants.CURRENTUSER_USERNAME) as! String,
+            email: UserDefaults.standard.value(forKey: constants.CURRENTUSER_EMAIL) as! String,
+            profilePicURL: UserDefaults.standard.value(forKey: constants.CURRENTUSER_PROFILEPICURL) as! String
         )
     }
 

@@ -20,14 +20,6 @@ class DevData {
     
     let constants = Constants()
     
-    // establish owner
-    //    var ownerID: String?
-    //    var ownerUsername: String?
-    //    var ownerEmail: String?
-    //    var ownerProfilePic: UIImage?
-    //    var ownerProfilePicURL: String?
-    
-    
     // get Firebase root references
     var mainDBRef: FIRDatabaseReference {
         return FIRDatabase.database().reference()
@@ -366,7 +358,7 @@ class DevData {
             // [START upload all example albums to Firebase]
             
             // upload cover image and get download url
-            let coverRef = self.mainStorageRef.child("albumCovers").child(album.ownerID).child(albumID)
+            let coverRef = self.mainStorageRef.child(self.constants.FIRS_ALBUMCOVERS).child(album.ownerID).child(albumID)
             coverRef.put(coverData, metadata: nil, completion: { (metadata: FIRStorageMetadata?, error: Error?) in
                 if error != nil {
                     print (error?.localizedDescription as Any)
@@ -385,7 +377,7 @@ class DevData {
                     ]
                     
                     // save album as Firebase album node
-                    let albumRef = self.mainDBRef.child(self.constants.FIR_USERALBUMS).child("\(album.ownerID)").child(albumID)
+                    let albumRef = self.mainDBRef.child(self.constants.FIRD_USERALBUMS).child("\(album.ownerID)").child(albumID)
                     albumRef.updateChildValues(albumData, withCompletionBlock: { (error, ref) in
                         if error != nil {
                             print (error?.localizedDescription as Any)
@@ -412,7 +404,7 @@ class DevData {
                     }
                     
                     // save album contributors as Firebase album node
-                    let contributorsRef = albumRef.child("contributors")
+                    let contributorsRef = albumRef.child(self.constants.FIRD_CONTRIBUTORS)
                     contributorsRef.updateChildValues(contributorsList, withCompletionBlock: { (error: Error?, ref) in
                         if error != nil {
                             print (error?.localizedDescription as Any)
@@ -439,7 +431,7 @@ class DevData {
                             "objectType": "album" as AnyObject
                         ]
                         let notifID = NSUUID().uuidString
-                        let notifRef = self.mainDBRef.child("userNotifications").child(album.ownerID).child(notifID)
+                        let notifRef = self.mainDBRef.child(self.constants.FIRD_USERNOTIFICATIONS).child(album.ownerID).child(notifID)
                         notifRef.updateChildValues(notifData, withCompletionBlock: { (error, ref) in
                             if let error = error {
                                 print (error.localizedDescription)
@@ -471,14 +463,14 @@ class DevData {
             guard let mediaDataObject = UIImagePNGRepresentation(media) else { return }
             
             let mediaID = NSUUID().uuidString
-            let mediaObjectRef = mainStorageRef.child(self.constants.FIR_ALBUMMEDIA).child(albumID).child(mediaID)
+            let mediaObjectRef = mainStorageRef.child(self.constants.FIRS_ALBUMMEDIA).child(albumID).child(mediaID)
             
             mediaObjectRef.put(mediaDataObject, metadata: nil, completion: { (metadata, error) in
                 if error != nil {
                     print (error?.localizedDescription as Any)
                 } else {
                     if let downloadURL = metadata?.downloadURL()?.absoluteString {
-                        let mediaDataRef = self.mainDBRef.child(self.constants.FIR_ALBUMMEDIA).child(albumID).child(mediaID)
+                        let mediaDataRef = self.mainDBRef.child(self.constants.FIRD_ALBUMMEDIA).child(albumID).child(mediaID)
                         let mediaData = [
                             "createdDate" : FIRServerValue.timestamp() as AnyObject,
                             "mediaURL" : downloadURL as AnyObject,
@@ -509,11 +501,11 @@ class DevData {
     
     // Manual override of 'CurrentUser' data for use in development :
     func setCurrentUserData() {
-        UserDefaults.standard.set("doFNiHlxHlZw7RS3Yajl4bqREjg2", forKey: constants.USER_ID)
-        UserDefaults.standard.set("jim@picho.com", forKey: constants.USER_USERNAME)
-        UserDefaults.standard.set("jim@picho.com", forKey: constants.USER_EMAIL)
-        UserDefaults.standard.set("password", forKey: constants.USER_PASSWORD)
-        UserDefaults.standard.set("https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144", forKey: constants.USER_PROFILEPICURL)
+        UserDefaults.standard.set("doFNiHlxHlZw7RS3Yajl4bqREjg2", forKey: constants.CURRENTUSER_ID)
+        UserDefaults.standard.set("jim@picho.com", forKey: constants.CURRENTUSER_USERNAME)
+        UserDefaults.standard.set("jim@picho.com", forKey: constants.CURRENTUSER_EMAIL)
+        UserDefaults.standard.set("password", forKey: constants.CURRENTUSER_PASSWORD)
+        UserDefaults.standard.set("https://firebasestorage.googleapis.com/v0/b/picho-51f78.appspot.com/o/userMedia%2FPHprofileImage.jpg?alt=media&token=b4e5e291-375a-4c50-bf13-27c0f6105144", forKey: constants.CURRENTUSER_PROFILEPICURL)
     }
     
 }

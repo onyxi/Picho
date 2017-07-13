@@ -25,6 +25,8 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
 //   -------Declare Variables---------------------------
     var delegate: UpdateFilterDelegate?
     
+    let dataService = DataService()
+    
     var filterIndex = 0
     
     // set up variables to hold managed objects from core data
@@ -34,9 +36,12 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
     
     var currentlySelectedAlbum: Album?
     
+    
 //   -------Main View Events---------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         self.collectionView.backgroundColor = UIColor.clear
         
@@ -68,7 +73,7 @@ class ChooseFilterVC: UIViewController, UICollectionViewDataSource, UICollection
     
     // select first row in table as initial selection
     override func viewWillAppear(_ animated: Bool) {
-        self.filters = DataService.fetchFilters()
+        self.filters = dataService.fetchFilters()
         collectionView.reloadData()
         
         let path = NSIndexPath(row: 0, section: 0) as IndexPath
