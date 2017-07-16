@@ -14,12 +14,12 @@ import FirebaseStorage
 import FirebaseAuth
 
 protocol AuthenticateDelegate { func didAuthenticate() }
+protocol FetchSingleAlbumDelegate { func didFetchSingleAlbum(album: Album) }
 protocol FetchAlbumsDelegate { func didFetchAlbumsData(pastAlbums: [Album], futureAlbums: [Album]) }
-protocol FetchNotifsDelegate { func didFetchNotifs(fetchedNotifs: [UserNotification]) }
 protocol FetchAlbumMediaDelegate { func didFetchAlbumMedia(fetchedMedia: [Media]) }
 protocol UploadAlbumDelegate { func didUploadAlbum() }
 protocol UploadMediaDelegate { func didUploadMedia() }
-protocol FetchSingleAlbumDelegate { func didFetchSingleAlbum(album: Album) }
+protocol FetchNotifsDelegate { func didFetchNotifs(fetchedNotifs: [UserNotification]) }
 
 typealias Completion = (_ errMsg: String?, _ data: AnyObject?) -> Void
 

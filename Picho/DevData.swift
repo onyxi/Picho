@@ -289,7 +289,7 @@ class DevData {
             
             // [END create example Album objects to save]
             
-            // **
+// **
             
             // [START save active albums to Core Data]
             
@@ -353,7 +353,7 @@ class DevData {
             
             // [END save active albums to Core Data]
             
-            // **
+// **
             
             // [START upload all example albums to Firebase]
             
@@ -497,7 +497,7 @@ class DevData {
     
     // [END upload all data]
     
-    // **
+// **
     
     // Manual override of 'CurrentUser' data for use in development :
     func setCurrentUserData() {

@@ -6,9 +6,6 @@
 //  Copyright © 2016 Onyx Interactive. All rights reserved.
 //
 
-protocol LogInDelegate {
-    func didLogIn()
-}
 
 import UIKit
 import pop
@@ -17,10 +14,13 @@ import FirebaseInstanceID
 import FirebaseMessaging
 import FirebaseAuth
 
+protocol LogInDelegate { func didLogIn() }
 
 class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
     
     var logInDelegate: LogInDelegate?
+    
+    let dataService = DataService()
 
 //   -------IB Outlets---------------------------
     //// login with email object outlets
@@ -50,8 +50,6 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         /// assign text field delegates
         self.emailField.delegate = self
         self.passwordField.delegate = self
@@ -63,11 +61,6 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(LoginVC.backToSocialLogin(_:)))
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
-        
-        
-        
-        //// !!!!!!!!!!!!!! ////
-        FIRMessaging.messaging().subscribe(toTopic: "/topics/news")
         
     }
     
@@ -117,31 +110,15 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
          if let email = emailField.text, let password = passwordField.text, (email.characters.count > 0 && password.characters.count > 0) {
             
             // call the sign-in service
-            let fbService = DataService()
-            fbService.authenticateDelegate = self
-            fbService.signIn(email: email, password: password, onComplete: { (errMsg, data) in
+            self.dataService.authenticateDelegate = self
+            self.dataService.signIn(email: email, password: password, onComplete: { (errMsg, data) in
                 guard errMsg == nil else {
                     let alert = UIAlertController(title: "Authentication Error", message: errMsg, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                     return
                 }
-                self.dismiss(animated: true, completion: nil)
-                //self.logInDelegate?.didLogIn()
             })
-            
-//            AuthService.instance.login(email: email, password: pass, onComplete: { (errMsg, data) in
-//                guard errMsg == nil else {
-//                    let alert = UIAlertController(title: "Authentication Error", message: errMsg, preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//                    self.present(alert, animated: true, completion: nil)
-//                    return
-//                }
-//               // DataService.instance.getAndStoreLoggedInUserInfo(userID: data!.uid, loggingIn: true)
-//                print (LoggedInUser.isLoaded)
-//                // picsVC: check auth and fetch albums
-//                self.dismiss(animated: true, completion: nil)
-//            })
             
          } else {
             showInvalidEntryAlert()
@@ -155,9 +132,8 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
         if let email = emailField.text, let password = passwordField.text, (email.characters.count > 0 && password.characters.count > 0) {
             
             // call the sign-up service
-            let fbService = DataService()
-            fbService.authenticateDelegate = self
-            fbService.signUp(email: email, password: password, onComplete: { (errMsg, data) in
+            self.dataService.authenticateDelegate = self
+            self.dataService.signUp(email: email, password: password, onComplete: { (errMsg, data) in
                 guard errMsg == nil else {
                     let alert = UIAlertController(title: "Account Creation Error", message: errMsg, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -168,22 +144,11 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
                 // [START load default data to firebase database/storage bucket]
                 
                     // once upload complete:
-                    self.dismiss(animated: true, completion: nil)
+ 
                 // [END load default data to firebase database/storage bucket]
                 
-              //self.logInDelegate?.didLogIn()
+              self.logInDelegate?.didLogIn()
             })
-            
-//            // call the createAccount service
-//            AuthService.instance.createAccount(email: email, password: pass, onComplete: { (errMsg, data) in
-//                guard errMsg == nil else {
-//                    let alert = UIAlertController(title: "Account Creation Error", message: errMsg, preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//                    self.present(alert, animated: true, completion: nil)
-//                    return
-//                }
-//                self.dismiss(animated: true, completion: nil)
-//            })
             
         } else {
             showInvalidEntryAlert()
@@ -195,9 +160,8 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
         // call back to fetch user data after user logged in
         print("did authenticate")
         self.logInDelegate?.didLogIn()
+        self.dismiss(animated: true, completion: nil)
     }
-    
-    
     
     
 //   -------General---------------------------
@@ -207,11 +171,6 @@ class LoginVC: UIViewController, UITextFieldDelegate, AuthenticateDelegate {
         return true
     }
     
-    
-    
-    
-    
-
         
 }
 
