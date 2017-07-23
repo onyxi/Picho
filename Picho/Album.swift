@@ -54,6 +54,25 @@ class Album {
         }
         return mediaCount
     }
+    
+    
+    func userMediaCount() -> Int {
+        for user in contributors {
+            if user.userID == CurrentUser().userID {
+                return user.photosTaken
+            }
+        }
+        return 0
+    }
+    
+    func userMediaRemaining() -> Int {
+        for user in contributors {
+            if user.userID == CurrentUser().userID {
+                return user.photosRemaining
+            }
+        }
+        return 0
+    }
 
 
 }

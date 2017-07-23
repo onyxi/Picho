@@ -17,17 +17,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    override init() {
+        super.init()
+        FIRApp.configure()
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         /// Configure Firebase services
-        FIRApp.configure()
+    //    FIRApp.configure()
         
-        let constants = Constants()
+  //      let constants = Constants()
         
         // Manual override of 'CurrentUser' data for use in development :
-//        DevData().setCurrentUserData()
-
+      
+//      DevData().setCurrentUserData()
+//      DevData().saveDevData()
+        
+        if UserDefaults.standard.value(forKey: Constants().CURRENTACTIVEALBUMID) == nil {
+            UserDefaults.standard.setValue(0, forKey: Constants().CURRENTFILTERID)
+        }
         
         return true
     }

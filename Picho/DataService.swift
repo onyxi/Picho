@@ -18,7 +18,7 @@ protocol FetchSingleAlbumDelegate { func didFetchSingleAlbum(album: Album) }
 protocol FetchAlbumsDelegate { func didFetchAlbumsData(pastAlbums: [Album], futureAlbums: [Album]) }
 protocol FetchAlbumMediaDelegate { func didFetchAlbumMedia(fetchedMedia: [Media]) }
 protocol UploadAlbumDelegate { func didUploadAlbum() }
-protocol UploadMediaDelegate { func didUploadMedia() }
+protocol CommitMediaDelegate { func didCommitMedia() }
 protocol FetchNotifsDelegate { func didFetchNotifs(fetchedNotifs: [UserNotification]) }
 
 typealias Completion = (_ errMsg: String?, _ data: AnyObject?) -> Void
@@ -34,7 +34,7 @@ class DataService {
     var fetchAlbumMediaDelegate: FetchAlbumMediaDelegate?
     var uploadAlbumDelegate: UploadAlbumDelegate?
     var deleteAlbumDelegate: DeleteAlbumDelegate?
-    var uploadMediaDelegate: UploadMediaDelegate?
+    var commitMediaDelegate: CommitMediaDelegate?
     var fetchSingleAlbumDelegate: FetchSingleAlbumDelegate?
     
     // get Firebase database and storage root directories
@@ -314,6 +314,63 @@ class DataService {
         
         // implement retrieval of active albums from local disk
         
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let managedContext = appDelegate?.managedObjectContext
+        let albumFetchRequest = NSFetchRequest<NSManagedObject>(entityName: self.constants.CD_ACTIVEALBUM)
+        
+        // get album data from CoreData
+        let sectionSortDescriptor = [NSSortDescriptor(key: self.constants.CD_ACTIVEALBUM_LASTSELECTED, ascending: false)]
+        albumFetchRequest.sortDescriptors = sectionSortDescriptor
+        
+        if albumID != nil {
+            let predicate = NSPredicate(format: "%K == %@", self.constants.CD_ACTIVEALBUM_ALBUMID, albumID!)
+            albumFetchRequest.predicate = predicate
+        }
+        
+        do {
+            if let albumFetchResults = try? managedContext?.fetch(albumFetchRequest) {
+                for albumResult in albumFetchResults! {
+                    
+                    // get contributor info from core data
+                    var contributors = [Contributor]()
+                    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                    let managedContext = appDelegate?.managedObjectContext
+                    let contributorFetchRequest = NSFetchRequest<NSManagedObject>(entityName: self.constants.CD_CONTRIBUTOR)
+                    do {
+                        if let contributorFetchResults = try? managedContext?.fetch(contributorFetchRequest) {
+                            // package contributor data into 'Contributor' objects
+                            for contributorResult in contributorFetchResults! {
+                                if contributorResult.value(forKey: self.constants.CD_CONTRIBUTOR_ALBUMID) as? String == albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_ALBUMID) as? String {
+                                    let contributor = Contributor(
+                                        userID: contributorResult.value(forKey: self.constants.CD_CONTRIBUTOR_USERID) as! String,
+                                        username: contributorResult.value(forKey: self.constants.CD_CONTRIBUTOR_USERNAME) as! String,
+                                        photosRemaining: contributorResult.value(forKey: self.constants.CD_CONTRIBUTOR_MEDIAREMAINING) as! Int,
+                                        photosTaken: contributorResult.value(forKey: self.constants.CD_CONTRIBUTOR_MEDIATAKEN) as! Int
+                                    )
+                                    contributors.append(contributor)
+                                }
+                            }
+                        }
+                    }
+                    
+                    // package album data into 'Album' objects
+                    let album = Album(
+                        albumID: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_ALBUMID) as! String,
+                        ownerID: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_OWNERID) as! String,
+                        title: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_TITLETEXT) as! String,
+                        description: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_DESCRIPTIONTEXT) as! String,
+                        createdDate: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_CREATEDDATE) as! Date,
+                        availableDate: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_AVAILABLEDATE) as! Date,
+                        contributors: contributors,
+                        coverURL: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_COVERURL) as? String,
+                        coverImage: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_COVERIMAGE) as? UIImage,
+                        isActive: albumResult.value(forKey: self.constants.CD_ACTIVEALBUM_ISACTIVE) as! Bool
+                    )
+                    localActiveAlbums.append(album)
+                }
+            }
+        }
+        
         return localActiveAlbums
     }
     // [END get active album(s) from core data]
@@ -522,7 +579,7 @@ class DataService {
                     if let error = error { // upload error occurred - provide feedback
                         print (error.localizedDescription)
                     } else { // callback once media upload complete
-                        self.uploadMediaDelegate?.didUploadMedia()
+                        self.commitMediaDelegate?.didCommitMedia()
                     }
                 })
             }
@@ -645,6 +702,10 @@ class DataService {
         // implement delete image here...
     }
     // [END delete image]
+    
+    //------------------- ACTIVE ALBUM AND FILTERS FUNCTIONS-----------------------------------------------------------
+    
+    
     
     
     //-------------------MANAGE NOTIFICATIONS FUNCTIONS-----------------------------------------------------------
@@ -800,7 +861,7 @@ class DataService {
     //----------------MANAGING FILTERS FUNCTIONS----------------------------
     
     // [START Fetch Filters from local disk]
-    func fetchFilters () -> [Filter] {
+    func fetchFilters (filterID: String?) -> [Filter] {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let managedContext = appDelegate?.managedObjectContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: self.constants.CD_FILTER)
@@ -810,14 +871,21 @@ class DataService {
         // get filter data from CoreData
         let sectionSortDescriptor = [NSSortDescriptor(key: self.constants.CD_FILTER_LASTSELECTED, ascending: false)]
         fetchRequest.sortDescriptors = sectionSortDescriptor
+        
+        if filterID != nil {
+            let predicate = NSPredicate(format: "%K == %@", self.constants.CD_FILTER_ID, filterID!)
+            fetchRequest.predicate = predicate
+        }
+        
         do {
             if let fetchResults = try? managedContext?.fetch(fetchRequest) {
                 
                 // package filter data into 'Filter' objects
                 for result in fetchResults! {
+                    let filterID = result.value(forKey: self.constants.CD_FILTER_ID) as? Int
                     let name = result.value(forKey: self.constants.CD_FILTER_NAME) as? String
                     let lastSelected = result.value(forKey: self.constants.CD_FILTER_LASTSELECTED) as? Date
-                    let filter = Filter(name: name!, lastSelected: lastSelected!)
+                    let filter = Filter(filterID: filterID!, name: name!, lastSelected: lastSelected!)
                     filters.append(filter)
                 }
             }
@@ -830,12 +898,69 @@ class DataService {
     
     //-----
     
-    // [START update filter usage data]
-    static func updateFilterInfo (filter: Filter) {
-        guard  let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+    // [START update album usage data]
+    
+    func setAlbumLastUsedTime (album: Album) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: self.constants.CD_ACTIVEALBUM)
+        print ("Key: \(album.albumID)")
+        let predicate = NSPredicate(format: "%K == %@", self.constants.CD_ACTIVEALBUM_ALBUMID, album.albumID)
+        fetchRequest.predicate = predicate
         
-        // implement setting of 'last used' timestamp to current date/time
-        //appDelegate.saveContext()
+        
+        do {
+            let array_albums = try managedContext.fetch(fetchRequest)            
+            let album = array_albums[0]
+            
+            album.setValue(Date(), forKey: self.constants.CD_ACTIVEALBUM_LASTSELECTED)
+            
+            do {
+                try managedContext.save()
+                print("saved!")
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
+            } catch {
+                
+            }
+            
+        } catch {
+            print("Error with request: \(error)")
+        }
+
+    }
+    
+    // [END update album usage data]
+    
+    
+    // [START update filter usage data]
+    func setFilterLastUsedTime (filter: Filter) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: self.constants.CD_FILTER)
+        let predicate = NSPredicate(format: "\(self.constants.CD_FILTER_ID) == \(filter.filterID)")
+        fetchRequest.predicate = predicate
+        
+        do {
+            let array_filters = try managedContext.fetch(fetchRequest)
+            let filter = array_filters[0]
+            
+            filter.setValue(Date(), forKey: self.constants.CD_FILTER_LASTSELECTED)
+            
+            do {
+                try managedContext.save()
+                print("saved!")
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
+            } catch {
+                
+            }
+            
+        } catch {
+            print("Error with request: \(error)")
+        }
+        
+        
     }
     // [END update filter usage data]
     

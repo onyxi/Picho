@@ -11,11 +11,11 @@ import AVFoundation
 import CoreData
 import FirebaseStorage
 
-class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelegate, UpdateAlbumButtonDelegate, UIPopoverPresentationControllerDelegate, UploadMediaDelegate {
+class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterButtonDelegate, UpdateAlbumButtonDelegate, UIPopoverPresentationControllerDelegate, CommitMediaDelegate {
 
 
 //   -------IB Outlets---------------------------
-    @IBOutlet weak var selectedAlbumCover: UIImageView!
+
     @IBOutlet weak var selectAlbumBtn: UIButton!
     @IBOutlet weak var cameraPreviewFrame: UIView!
     @IBOutlet weak var navBar: UINavigationBar!
@@ -28,52 +28,30 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
 
 
 //   -------Declare Variables---------------------------
-    
+    let constants = Constants()
+    let dataService = DataService()
     var currentUser: CurrentUser?
+    
+    var selectedFilter: Filter?
+    var selectedAlbum: Album?
+    
+    var selectedAlbumPhotosRemaining: Int?
+    var selectedAlbumPhotosTaken: Int?
+    
     
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput!
     var previewLayer: AVCaptureVideoPreviewLayer?
 
-    var storageRef: FIRStorageReference!
-
-  //  var activeInput: AVCaptureDeviceInput!
-  //  let imageOutput = AVCaptureStillImageOutput()
-  //  var captureDevice: AVCaptureDevice!
 
     var popoverIsDisplayed = false // flag to signal if popover currently being displayed
-
-    // setup variables to hold Core Data objects
-      // variable to hold current album object
-    var currentAlbum: NSManagedObject?
-      // variable to hold user as object to associate with new images
-    var appUser: NSManagedObject!
-      // number of photos left available for currently selected album
-    var currentAlbumPhotosRemaining: Int?
-    var currentAlbumPhotosTaken: Int?
-
-      // var album: [NSManagedObject] = []
-    
-    var activeAlbums: [Album]?
-    var currentlySelectedAlbum: Album?
 
 //   -------Main View Events---------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // [start storage config]
-        storageRef = FIRStorage.storage().reference()
-        // [end storage config]
-        
         // hide camera flash indicator
         self.flashLayer.alpha = 0
-        
-        // get app user as NS object to associate with pictures
-      //  let appUserArray = CoreDataModel.fetchUsers(named: "Pete Holdsworth")
-       // appUser = appUserArray[0]
-
-        /// set navigation controller title font
-        //  self.navBar.titleTextAttributes = ([NSFontAttributeName: UIFont(name: "LobsterTwo-BoldItalic", size: 24)!, NSForegroundColorAttributeName: UIColor.white])
         
         /// set NavigationBar title as logo
         let titleLogo = UIImageView()
@@ -86,94 +64,38 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
         self.navBar.addSubview(titleLogo)
         
         /// set Album Button appearance
-        selectedAlbumCover.layer.cornerRadius = 8
-        selectedAlbumCover.clipsToBounds = true
+        albumCoverImage.layer.cornerRadius = 8
+        albumCoverImage.clipsToBounds = true
         selectAlbumBtn.layer.cornerRadius = 8
         selectAlbumBtn.clipsToBounds = true
-        albumLabel.text = "Travels 2016"
-        albumPicsLabel.text = "27"
-        albumCoverImage.image = UIImage(named: "palms3")
-        
-        //// configure 'choose filter' and 'choose album' button appearance
-        /// set Filter Button appearance
-        if let currentFilterName = UserDefaults.standard.string(forKey: "savedCurrentFilter") {
-            updateFilterInfo(filterName: currentFilterName)
-        }
-
-        /// set Album Button appearance
-      //  let allCurrentAlbums = CoreDataModel.fetchAlbums(isAvailable: false, source: nil, albumName: nil) // import available albums from Core Data
-       
-        
-        /*
-        for album in allCurrentAlbums {
-            if album.value(forKey: "title") as? String == savedCurrentAlbumTitle {
-                currentAlbum = album // search array for available album matching saved current album title
-            }
-        }
-        
-       
-        let currentAlbumCover = currentAlbum?.value(forKey: "coverImage") as? NSManagedObject
-        let currentAlbumCoverImage = currentAlbumCover?.value(forKey: "image") as? UIImage
-        let currentAlbumTitle = currentAlbum?.value(forKey: "title") as? String
-        let currentAlbumPicCount = currentAlbum?.value(forKey: "photosRemaining") as? Int
-        */
-       // updateAlbumInfo(name: currentAlbumTitle!, picCount: currentAlbumPicCount!, coverImageName: currentAlbumCoverImage!)
-        
-        
-        ////// begin using camera feed ////////////////////////
-
-        
-        
-        
-        
+        albumLabel.text = "default"
+        albumPicsLabel.text = "0"
+        albumCoverImage.image = UIImage(named: "default")
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // load Current User data
         currentUser = CurrentUser()
         
-//        let savedCurrentAlbumTitle = UserDefaults.standard.string(forKey: "savedCurrentAlbum")! as String // load name of last chosen album
-        //        let savedCurrentAlbumArray = CoreDataModel.fetchAlbums(isAvailable: false, source: nil, albumName: savedCurrentAlbumTitle)
-        activeAlbums = DataService().fetchLocalActiveAlbums(albumID: nil)
-        getCurrentlySelectedAlbum()
+        //// get currently selected Album and update UI
+        updateAlbumButton()
         
-        //  let savedCurrentAlbum = savedCurrentAlbumArray[0]
-      //  updateAlbumInfo(album: savedCurrentAlbum)
-   //     currentAlbum = savedCurrentAlbum
-        
+        /// get currently selected Filter and update UI
+        updateFilterButton()
         
         // [start camera!!!]
         //setupCaptureSession()
     }
     
     
-    func getCurrentlySelectedAlbum() {
-        let savedCurrentAlbumID = UserDefaults.standard.string(forKey: "savedCurrentAlbumID")! as String
-        if activeAlbums != nil {
-            for album in activeAlbums! {
-                if album.albumID == savedCurrentAlbumID {
-                    currentlySelectedAlbum = album
-                }
-            }
-        }
-    }
-    
-    func didUploadMedia() {
-        print ("media uploaded to firebase")
-    }
-    
-    
-//   -------Methods---------------------------
-    /// switch cameras - front/rear
-    @IBAction func switchButtonPressed(_ sender: AnyObject) {
-        /// switch cameras
-    }
+    //   -------Methods---------------------------
+
     
     /// set up camera session/inputs
     func setupCaptureSession() {
-        
         
         stillImageOutput = AVCapturePhotoOutput()
         captureSession = AVCaptureSession()
@@ -202,23 +124,19 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
                 previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
                 previewLayer!.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 458)
                 cameraPreviewFrame.layer.addSublayer(previewLayer!)
-             //  previewLayer!.frame = cameraPreviewFrame.bounds
                 previewLayer!.videoGravity = AVLayerVideoGravityResizeAspectFill
                 previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
                 
                 captureSession!.startRunning()
-                
- 
-                
+        
             }
         }
-       
     }
     
     
     // begin take picture
     @IBAction func takePicturePressed(_ sender: Any) {
-        if self.currentAlbumPhotosRemaining! > 0 {
+        if self.selectedAlbumPhotosRemaining! > 0 {
             let settings = AVCapturePhotoSettings()
             let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
             let previewFormat = [
@@ -247,37 +165,13 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
             let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
             let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.right)
             
-            print ("saving image to album")
-//            CoreDataModel.saveImage(image: image, imageCreatedDate: Date(), owner: appUser, album: currentAlbum!)
-            
-            
-            currentAlbumPhotosRemaining! -= 1
-            currentAlbumPhotosTaken! += 1
-            //CoreDataModel.updateAlbumInfo(album: currentAlbum!, date: nil, photosRemaining: currentAlbumPhotosRemaining, photosTaken: currentAlbumPhotosTaken)
-            //updateAlbumButton(album: currentAlbum!)
             flashCameraPreview()
-            
-            
-            // firebase upload
-            
-            // prepare info to upload
-//            let albumName = currentAlbum?.value(forKey: "title") as! String
-//            let photoNumberString = String(describing: currentAlbumPhotosTaken!)
-//            let photoName = "photo: \(photoNumberString)"
-//            let photo = image
-//            FireSD.uploadPhotoFromMemory(albumName: albumName, photoName: photoName, photo: photo)
-    
-            // new 
-//            let destinationAlbum = currentlySelectedAlbum
-//            let media = image
-            
-            if currentlySelectedAlbum != nil {
-                let fbService = DataService()
-                fbService.uploadMediaDelegate = self
-                fbService.commitMediaToAlbum(media: image, album: currentlySelectedAlbum!)
-            }
-            
-            
+            print ("saving image to album")
+            // implement saving image here...
+ //           dataService.commitMediaToAlbum(media: image, album: selectedAlbum)
+ //           selectedAlbumPhotosRemaining -= 1
+ //           selectedAlbumPhotosTaken +- 1
+ //           updateAlbumButton()
             
         } else {
             print("some error here")
@@ -286,8 +180,18 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
         
         
     }
+    
+    func didCommitMedia() {
+        print ("media committed")
+        // implement resuming of app
+    }
+    
+    /// switch cameras - front/rear
+    @IBAction func switchButtonPressed(_ sender: AnyObject) {
+        /// switch cameras
+    }
 
-    // flash view finder to indicate picture taken
+    // momentarily flash the view preview to indicate picture taken
     func flashCameraPreview () {
         self.flashLayer.alpha = 0.7
         UIView.animate(withDuration: 0.5) {
@@ -295,77 +199,57 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
         }
     }
     
+    /// update Filter Button info with current filter data
+    func updateFilterButton() {
+        
+        if let currentlySelectedFilter = UserDefaults.standard.string(forKey: self.constants.CURRENTFILTERID) {
+            let selectedFiltersArray = dataService.fetchFilters(filterID: currentlySelectedFilter)
+            if selectedFiltersArray.count > 0 {
+                selectedFilter = selectedFiltersArray[0]
+            }
+            
+        } else {
+            // implement default filter selection...
+            let selectedFiltersArray = dataService.fetchFilters(filterID: nil)
+            if selectedFiltersArray.count > 0 {
+                selectedFilter = selectedFiltersArray[0]
+            }
+            
+        }
+        
+        filterLabel.text = selectedFilter?.name
     
-    /// update Filter Button info with selection from ChooseFilterVC
-    func updateFilterInfo (filterName: String) {
-        filterLabel.text = filterName
     }
     
-    /// update Album Button info with selection from ChooseAlbumVC
-    func updateAlbumButton (album: Album) {
-        //(name: String, picCount: Int, coverImageName: UIImage, ) {
+    /// update Album Button info with current album data
+    func updateAlbumButton() {
         
-//        if let name = album.value(forKey: "title") as? String {
-//            albumLabel.text = name
-//        }
-        albumLabel.text = album.title
-        
-//        if let picsRemaining = album.value(forKey: "photosRemaining") as? Int {
-//            albumPicsLabel.text = String(describing: picsRemaining)
-//            self.currentAlbumPhotosRemaining = picsRemaining
-//        }
-        
-        
-
-        self.currentAlbumPhotosRemaining = 5
-        albumPicsLabel.text = String(5)
-        
-//        if let picsTaken = album.value(forKey: "photosTaken") as? Int {
-//            self.currentAlbumPhotosTaken = picsTaken
-//        }
-        
-        var mediaCount = 0
-        for contributor in album.contributors {
-            if contributor.userID == currentUser?.userID {
-                mediaCount += contributor.photosTaken
+        if let currentlySelectedAlbum = UserDefaults.standard.string(forKey: self.constants.CURRENTACTIVEALBUMID) {
+            if let selectedAlbumsArray = dataService.fetchLocalActiveAlbums(albumID: currentlySelectedAlbum) {
+                if selectedAlbumsArray.count > 0 {
+                    selectedAlbum = selectedAlbumsArray[0]
+                }
             }
-        }
-        self.currentAlbumPhotosTaken = mediaCount
-        
-//        if let coverImageObject = album.value(forKey: "coverImage") as? NSManagedObject {
-//            if let coverImage = coverImageObject.value(forKey: "image") as? UIImage {
-//                albumCoverImage.image = coverImage
-//            }
-//        }
-        if let coverImage = album.coverImage {
-            albumCoverImage.image = coverImage
-        }
-        
-
-       // self.currentAlbum = album
-        self.currentlySelectedAlbum = album
-        
-        /*
-        if let selectedAlbumTitle = selectedAlbum.value(forKey: "title") as? String {
-            if let selectedAlbumPicCount = selectedAlbum.value(forKey: "photosRemaining") as? Int {
-                let selectedAlbumCover = selectedAlbum.value(forKey: "coverImage") as? NSManagedObject
-                if let selectedAlbumImage = selectedAlbumCover?.value(forKey: "image") as? UIImage {
-                    delegate?.updateAlbumInfo(name: selectedAlbumTitle, picCount: selectedAlbumPicCount, coverImageName: selectedAlbumImage)
-                    UserDefaults.standard.set(selectedAlbumTitle, forKey: "savedCurrentAlbum")
-                    /// update last-selected time
-                    CoreDataModel.updateAlbumInfo(album: selectedAlbum)
+        } else {
+            // implement default album selection...
+            if let selectedAlbumsArray = dataService.fetchLocalActiveAlbums(albumID: nil) {
+                if selectedAlbumsArray.count > 0 {
+                    selectedAlbum = selectedAlbumsArray[0]
                 }
             }
         }
-        */
         
+        albumLabel.text = selectedAlbum?.title
+        albumCoverImage.image = selectedAlbum?.coverImage
+        if let mediaRemaining = selectedAlbum?.userMediaRemaining() {
+            albumPicsLabel.text = String(describing: mediaRemaining)
         }
-
-    
+        
+    }
 
     
     /// show ChooseAlbumVC popover view controller
-    @IBAction func selectAlbumBtnDidPressed(_ sender: AnyObject) {
+    @IBAction func chooseAlbumBtnDidPressed(_ sender: AnyObject) {
         /// create instance of ChooseFilterVC
         let chooseAlbumVC = storyboard?.instantiateViewController(withIdentifier: "ChooseAlbumVC") as! ChooseAlbumVC
         
@@ -389,17 +273,10 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
             var viewsToPass: [UIView]
             viewsToPass = [selectFilterBtn]
             popoverController.passthroughViews = viewsToPass
-            
         }
         
         /// set destination view controller delegate
         chooseAlbumVC.updateAlbumButtonDelegate = self
-        if self.activeAlbums != nil {
-            chooseAlbumVC.activeAlbums = self.activeAlbums!
-        }
-        if self.currentlySelectedAlbum != nil {
-            chooseAlbumVC.currentlySelectedAlbum = self.currentlySelectedAlbum
-        }
         
         /// display ChooseAlbumVC
         present(chooseAlbumVC, animated: true, completion: nil)
@@ -429,14 +306,14 @@ class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterDelega
             popoverController.sourceRect = selectFilterBtn.bounds
             popoverController.permittedArrowDirections = .down
             popoverController.delegate = self
+            
             var viewsToPass: [UIView]
             viewsToPass = [selectAlbumBtn]
             popoverController.passthroughViews = viewsToPass
-    
         }
         
         /// set destination view controller delegate
-        chooseFilterVC.delegate = self
+        chooseFilterVC.updateFilterButtonDelegate = self
         
         /// display chooseFilterVC
         present(chooseFilterVC, animated: true, completion: nil)

@@ -7,7 +7,7 @@
 //
 
 protocol UpdateAlbumButtonDelegate {
-    func updateAlbumButton(album: Album)
+    func updateAlbumButton()
         //(name: String, picCount: Int, coverImageName: UIImage)
 }
 
@@ -22,12 +22,14 @@ class ChooseAlbumVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 //   -------Declare Variables---------------------------
     var updateAlbumButtonDelegate: UpdateAlbumButtonDelegate?
     
-    // setup arrays to hold objects from Core Data
-    var futureCoverImages: [NSManagedObject] = []
-    var futureAlbums: [NSManagedObject] = []
+    let dataService = DataService()
     
+    let constants = Constants()
+    
+    // declare properties to hold Album data from disk
     var activeAlbums: [Album] = []
-    var currentlySelectedAlbum: Album?
+    var selectedAlbum: Album?
+    
     
 //   -------Main View Events---------------------------
     override func viewDidLoad() {
@@ -45,11 +47,20 @@ class ChooseAlbumVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // import album objects
-       // self.futureAlbums = CoreDataModel.fetchAlbums(isAvailable: false, source: "ChooseAlbumVC", albumName: nil)
+
+        // get active albums from Core Data
+        if let localAlbums = dataService.fetchLocalActiveAlbums(albumID: nil) {
+            activeAlbums = localAlbums
+        }
         
-        // sort activeAlbums array
-        tableView.reloadData() // refresh table with newly sorted objects
+        let selectedAlbumID = UserDefaults.standard.value(forKey: self.constants.CURRENTACTIVEALBUMID) as? String
+        for album in activeAlbums {
+            if album.albumID == selectedAlbumID {
+                selectedAlbum = album
+            }
+        }
+        
+        tableView.reloadData() // refresh table with fetched objects
         
         // set initial selection of first cell in table
         let path = NSIndexPath(row: 0, section: 0)
@@ -75,51 +86,27 @@ class ChooseAlbumVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     /// set up tableView and content
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // return futureCoverImages.count
-        //return futureAlbums.count
         return activeAlbums.count
     }
     
     // configure cells for album table
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseAlbumCell", for: indexPath) as! ChooseAlbumTableViewCell
-    
-        var imageForCell = UIImage(named: "rockiesCover") /// use default 'no cover' image here
         
-        //let currentAlbum = futureAlbums[indexPath.row]
         let currentAlbum = activeAlbums[indexPath.row]
-        var albumMediaCount = 0
-        for contributor in currentAlbum.contributors {
-            albumMediaCount += contributor.photosTaken
-        }
         
-//        if let albumCover = currentAlbum.value(forKey: "coverImage") as? NSManagedObject {
-//            imageForCell = albumCover.value(forKey: "image") as? UIImage
-//            cell.albumCoverTile.image = imageForCell
-//        }
-
         if let albumCoverImage = currentAlbum.coverImage {
             cell.albumCoverTile.image = albumCoverImage
         }
         
-//        if let titleForCell = currentAlbum.value(forKey: "title") as? String {
-//            cell.albumTitleLabel.text = titleForCell
-//        }
-        
         cell.albumTitleLabel.text = currentAlbum.title
         
-//        if let remainingPhotosForCell = currentAlbum.value(forKey: "photosRemaining") as? Int {
-//            cell.remainingPhotosLabel.text = String(describing: remainingPhotosForCell)
-//        }
-        
-        cell.remainingPhotosLabel.text = String(albumMediaCount)
-        
+        cell.remainingPhotosLabel.text = String(describing: currentAlbum.userMediaRemaining())
+    
         cell.backgroundColor = UIColor.clear
         
-        
-        
         return cell
-           }
+    }
     
     // set height for cells in table
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,32 +119,12 @@ class ChooseAlbumVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         //let selectedAlbum = futureAlbums[indexPath.row]
         let selectedAlbum = activeAlbums[indexPath.row]
         
-        updateAlbumButtonDelegate?.updateAlbumButton(album: selectedAlbum)
-        //(name: selectedAlbumTitle, picCount: selectedAlbumPicCount, coverImageName: selectedAlbumImage)
+        dataService.setAlbumLastUsedTime(album: selectedAlbum)
         
-//        if let selectedAlbumTitle = selectedAlbum.value(forKey: "title") {
-//            UserDefaults.standard.set(selectedAlbumTitle, forKey: "savedCurrentAlbum")
-//        }
-        UserDefaults.standard.set(selectedAlbum.albumID, forKey: "savedCurrentAlbumID")
-        
-        // add timestamp for lat time the album was selected
-        // !!!!!!!!!!!!!!!!!!!
-      //  CoreDataModel.updateAlbumInfo(album: selectedAlbum, date: Date(), photosRemaining: nil, photosTaken: nil)
-        
-        /*
-        if let selectedAlbumTitle = selectedAlbum.value(forKey: "title") as? String {
-            if let selectedAlbumPicCount = selectedAlbum.value(forKey: "photosRemaining") as? Int {
-                let selectedAlbumCover = selectedAlbum.value(forKey: "coverImage") as? NSManagedObject
-                if let selectedAlbumImage = selectedAlbumCover?.value(forKey: "image") as? UIImage {
-                    delegate?.updateAlbumInfo(name: selectedAlbumTitle, picCount: selectedAlbumPicCount, coverImageName: selectedAlbumImage)
-                    UserDefaults.standard.set(selectedAlbumTitle, forKey: "savedCurrentAlbum")
-                    /// update last-selected time
-                    CoreDataModel.updateAlbumInfo(album: selectedAlbum)
-                }
-            }
-        }
-        */
-
+        UserDefaults.standard.set(selectedAlbum.albumID, forKey: self.constants.CURRENTACTIVEALBUMID)
+        updateAlbumButtonDelegate?.updateAlbumButton()
+       
+      
         /// override highlighted cell color on selection
         let cell = tableView.cellForRow(at: indexPath)
         cell?.backgroundColor = UIColor(red: 244/255, green: 233/255, blue: 209/255, alpha: 1)

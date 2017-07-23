@@ -294,7 +294,7 @@ class DevData {
             // [START save active albums to Core Data]
             
             // if album is active save to Core Data
-            if album.isActive == true {
+            if album.isActive {
                 
                 // package and save Album objects to Core Data
                 guard  let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -417,7 +417,7 @@ class DevData {
                     
                     // [END upload all example albums to Firebase]
                     
-                    // *
+// *
                     
                     // [START create example notifications]
                     
@@ -448,6 +448,31 @@ class DevData {
         }
         // [END uploading albums
         
+        
+        
+        // [START create and save filters]
+        
+        guard  let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.managedObjectContext
+        let entity = NSEntityDescription.entity(forEntityName: "Filter", in: managedContext)
+        for filterIndex in 0 ... 4 {
+            
+            let objectToSave = NSManagedObject(entity: entity!, insertInto: managedContext)
+            objectToSave.setValue(filterIndex, forKey: "filterID")
+            var filterName: String!
+            if filterIndex == 0 { filterName = "Nostalgia"}
+            if filterIndex == 1 { filterName = "Classic"}
+            if filterIndex == 2 { filterName = "Warm"}
+            if filterIndex == 3 { filterName = "Cool"}
+            if filterIndex == 4 { filterName = "Black & White"}
+            objectToSave.setValue(filterName, forKey: "name")
+            objectToSave.setValue(Date(), forKey: "lastSelected")
+            
+            do { try managedContext.save() } catch {}
+        }
+        
+        // [END create and save filters]
+
     }
     
     

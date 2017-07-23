@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ieO-nK-GPs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ieO-nK-GPs">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1875,7 +1875,7 @@
                                     <constraint firstAttribute="width" constant="70" id="jnv-Te-FkS"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="selectAlbumBtnDidPressed:" destination="QFb-cg-92l" eventType="touchUpInside" id="SNg-4z-s0d"/>
+                                    <action selector="chooseAlbumBtnDidPressed:" destination="QFb-cg-92l" eventType="touchUpInside" id="qij-dR-Ljk"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travels 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyv-Zu-utf">
@@ -1992,7 +1992,6 @@
                         <outlet property="navBar" destination="xWr-7J-nbZ" id="dY1-8k-Qhk"/>
                         <outlet property="selectAlbumBtn" destination="GJv-ln-92v" id="3jh-8Y-XDL"/>
                         <outlet property="selectFilterBtn" destination="eS0-Xh-m5x" id="6aE-IW-gP9"/>
-                        <outlet property="selectedAlbumCover" destination="g9H-Bu-xMc" id="kyq-7Z-REq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L2T-ag-rpk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2264,7 +2263,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZXb-2f-GV8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gDa-jv-MKa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gDa-jv-MKa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

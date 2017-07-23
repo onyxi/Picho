@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16D32" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="ActiveAlbum" syncable="YES">
         <attribute name="albumID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="availableDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -34,6 +34,7 @@
         <relationship name="activeAlbums" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ActiveAlbum" inverseName="currentUser" inverseEntity="ActiveAlbum" syncable="YES"/>
     </entity>
     <entity name="Filter" syncable="YES">
+        <attribute name="filterID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastSelected" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -50,7 +51,7 @@
         <element name="ActiveAlbum" positionX="-153" positionY="-9" width="128" height="270"/>
         <element name="Contributor" positionX="-144" positionY="0" width="128" height="135"/>
         <element name="CurrentUser" positionX="-162" positionY="-18" width="128" height="135"/>
-        <element name="Filter" positionX="-153" positionY="-9" width="128" height="75"/>
+        <element name="Filter" positionX="-153" positionY="-9" width="128" height="90"/>
         <element name="Media" positionX="-135" positionY="9" width="128" height="150"/>
     </elements>
 </model>

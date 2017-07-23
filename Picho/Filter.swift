@@ -11,11 +11,13 @@ import UIKit
 class Filter {
     
     // declare Media object properties
+    var filterID: Int
     var name: String
     var lastSelected: Date
     
     // initialize Media object
-    init(name: String, lastSelected: Date) {
+    init(filterID: Int, name: String, lastSelected: Date) {
+        self.filterID = filterID
         self.name = name
         self.lastSelected = lastSelected
     }

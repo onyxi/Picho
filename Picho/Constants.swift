@@ -18,6 +18,9 @@ struct Constants {
     let CURRENTUSER_PROFILEPICURL = "currentProfilePicURL"
     let CURRENTUSER_ISLOADED = "isLoaded"
     
+    let CURRENTFILTERID = "currentFilter"
+    let CURRENTACTIVEALBUMID = "currentActiveAlbum"
+    
 // **
     
     // Keys for Firebase Database references :
@@ -94,6 +97,7 @@ struct Constants {
     let CD_CURRENTUSER_USERNAME = "username"
     
     let CD_FILTER = "Filter"
+    let CD_FILTER_ID = "filterID"
     let CD_FILTER_LASTSELECTED = "lastSelected"
     let CD_FILTER_NAME = "name"
     
