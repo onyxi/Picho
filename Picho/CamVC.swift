@@ -12,7 +12,7 @@ import CoreData
 import FirebaseStorage
 
 class CamVC: UIViewController, AVCapturePhotoCaptureDelegate, UpdateFilterButtonDelegate, UpdateAlbumButtonDelegate, UIPopoverPresentationControllerDelegate, CommitMediaDelegate {
-
+ 
 
 //   -------IB Outlets---------------------------
 
